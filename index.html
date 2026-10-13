@@ -48,7 +48,7 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 18px 22px;
-      max-width: 450px;
+      max-width: 460px;
       pointer-events: auto;
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
     }
@@ -103,7 +103,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      min-width: 310px;
+      min-width: 330px;
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
     }
     .control-row {
@@ -118,24 +118,25 @@
       grid-template-columns: 1fr 1fr;
       gap: 8px;
     }
-    button, .file-label {
+    button, .file-label, a.link-btn {
       background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: white;
       border: 1px solid rgba(147, 197, 253, 0.35);
       border-radius: 10px;
       padding: 8px 12px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       cursor: pointer;
       text-align: center;
+      text-decoration: none;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
       display: inline-block;
     }
-    button:hover, .file-label:hover {
+    button:hover, .file-label:hover, a.link-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
     }
-    button.secondary {
+    button.secondary, a.link-btn.secondary {
       background: rgba(30, 41, 59, 0.9);
       border-color: rgba(148, 163, 184, 0.35);
     }
@@ -159,12 +160,12 @@
 
   <div class="hud-header">
     <div class="brand-card">
-      <div class="badge">● Gemini 4 Argon • Live 3D Spatial Engine</div>
-      <h1>Image &amp; Video-to-3D Spatial Studio</h1>
+      <div class="badge">● Gemini 4 Argon • 100% Built-From-Scratch 3D Suite</div>
+      <h1>Live 3D Spatial &amp; Image/Video-to-3D Studio</h1>
       <p class="subtitle">
-        Explore Gemini 4 Argon's 3D spatial reasoning (87% ERQA SOTA): switch between the
-        <b>Stellarator Fusion Coils</b>, <b>Sunlit Ray-Traced Study</b>, or upload any
-        <b>Image / Video</b> to reconstruct a live 3D depth-mapped point cloud!
+        Explore 5 custom-built 3D scenes created from scratch: <b>Stellarator Fusion Coils</b>,
+        <b>Procedural 5-Tier Pagoda Temple</b>, <b>Crystalline Voxel Shatter Cluster</b>,
+        <b>Sunlit Ray-Traced Study</b>, or upload any <b>Image / Video</b> to reconstruct a live 3D point cloud!
       </p>
       <div class="metrics-grid">
         <div class="metric">
@@ -189,10 +190,12 @@
     <div class="controls-card">
       <div class="control-row">
         <span>3D Scene Preset</span>
-        <select id="sceneSelect" style="background:#0f172a;color:#fff;border:1px solid #334155;border-radius:6px;padding:4px 8px;font-size:12px;">
+        <select id="sceneSelect" style="background:#0f172a;color:#fff;border:1px solid #334155;border-radius:6px;padding:5px 8px;font-size:12px;">
           <option value="stellarator">1. Stellarator Fusion Coils</option>
-          <option value="study">2. Sunlit Ray-Traced Study</option>
-          <option value="synthVideo">3. Live Video-to-3D Wave Mesh</option>
+          <option value="pagoda">2. Procedural 5-Tier Pagoda Temple</option>
+          <option value="shatter">3. Crystalline Voxel Shatter Cluster</option>
+          <option value="study">4. Sunlit Ray-Traced Study</option>
+          <option value="synthVideo">5. Live Video-to-3D Wave Mesh</option>
         </select>
       </div>
       <div class="control-row">
@@ -212,6 +215,10 @@
       <div class="btn-group">
         <button id="snapBtn" class="secondary">📸 Save 3D Image</button>
         <button id="recBtn" class="secondary">🎥 Record 3D Video</button>
+      </div>
+      <div class="btn-group">
+        <a class="link-btn secondary" href="./examples/09_3d_physics_shatter_arena.html">💥 3D Shatter Arena</a>
+        <a class="link-btn secondary" href="./examples/10_3d_robotics_ik_simulator.html">🤖 3D Robotics Sim</a>
       </div>
       <div id="statusText" class="status-pill">Drag mouse to orbit • Scroll to zoom</div>
     </div>
@@ -233,12 +240,12 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    scene.add(new THREE.AmbientLight(0x93c5fd, 0.7));
-    const light1 = new THREE.PointLight(0x38bdf8, 50, 35);
+    scene.add(new THREE.AmbientLight(0x93c5fd, 0.75));
+    const light1 = new THREE.PointLight(0x38bdf8, 55, 35);
     light1.position.set(5, 6, 6);
     scene.add(light1);
 
-    const light2 = new THREE.PointLight(0xfbbc04, 40, 35);
+    const light2 = new THREE.PointLight(0xfbbc04, 45, 35);
     light2.position.set(-6, -3, 5);
     scene.add(light2);
 
@@ -252,6 +259,8 @@
     let currentMode = "stellarator";
     let videoElem = null;
     let depthPoints = null;
+    let shatterCubes = [];
+    let pagodaLanterns = [];
     let depthCanvas = document.createElement("canvas");
     let depthCtx = depthCanvas.getContext("2d", { willReadFrequently: true });
     const GRID_W = 96;
@@ -266,6 +275,8 @@
         if (obj.geometry) obj.geometry.dispose();
       }
       depthPoints = null;
+      shatterCubes = [];
+      pagodaLanterns = [];
     }
 
     function buildStellarator(twist = 5) {
@@ -292,6 +303,70 @@
       const pGeom = new THREE.BufferGeometry();
       pGeom.setAttribute("position", new THREE.BufferAttribute(pos, 3));
       group.add(new THREE.Points(pGeom, new THREE.PointsMaterial({ color: 0x38bdf8, size: 0.06 })));
+    }
+
+    function buildPagodaTemple() {
+      clearGroup();
+      const woodMat = new THREE.MeshStandardMaterial({ color: 0x991b1b, roughness: 0.4, metalness: 0.2 });
+      const roofMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.3, metalness: 0.7 });
+      const goldMat = new THREE.MeshStandardMaterial({ color: 0xfbbc04, emissive: 0x78350f, roughness: 0.2, metalness: 0.9 });
+
+      const base = new THREE.Mesh(new THREE.BoxGeometry(4.4, 0.5, 4.4), new THREE.MeshStandardMaterial({ color: 0x475569 }));
+      base.position.y = -2.2;
+      group.add(base);
+
+      for (let tier = 0; tier < 5; tier++) {
+        const scale = Math.pow(0.78, tier);
+        const yBase = -1.9 + tier * 0.88;
+        const wallW = 2.6 * scale;
+        const wall = new THREE.Mesh(new THREE.BoxGeometry(wallW, 0.65, wallW), woodMat);
+        wall.position.y = yBase + 0.32;
+        group.add(wall);
+
+        const roof = new THREE.Mesh(new THREE.ConeGeometry(wallW * 1.05, 0.42, 4), roofMat);
+        roof.position.y = yBase + 0.78;
+        roof.rotation.y = Math.PI / 4;
+        group.add(roof);
+      }
+
+      const spire = new THREE.Mesh(new THREE.ConeGeometry(0.18, 1.35, 16), goldMat);
+      spire.position.y = 3.1;
+      group.add(spire);
+
+      for (let i = 0; i < 24; i++) {
+        const lantern = new THREE.Mesh(
+          new THREE.SphereGeometry(0.11, 16, 16),
+          new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+        );
+        const angle = (i / 24) * Math.PI * 2;
+        const radius = 2.4 + (i % 3) * 0.65;
+        const y = -1.5 + (i / 24) * 4.5;
+        lantern.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
+        lantern.userData = { angle, radius, baseY: y, phase: i * 0.4 };
+        group.add(lantern);
+        pagodaLanterns.push(lantern);
+      }
+    }
+
+    function buildShatterCluster() {
+      clearGroup();
+      const palette = [0x38bdf8, 0xfbbc04, 0xf43f5e, 0xa855f7, 0x34d399];
+      for (let x = -2; x <= 2; x++) {
+        for (let y = -2; y <= 2; y++) {
+          for (let z = -2; z <= 2; z++) {
+            const color = palette[Math.abs(x + y + z) % palette.length];
+            const mesh = new THREE.Mesh(
+              new THREE.OctahedronGeometry(0.32, 0),
+              new THREE.MeshPhysicalMaterial({ color, metalness: 0.35, roughness: 0.12, clearcoat: 1.0 })
+            );
+            const home = new THREE.Vector3(x * 0.72, y * 0.72, z * 0.72);
+            mesh.position.copy(home);
+            mesh.userData = { home, dir: home.clone().normalize().addScalar(0.01) };
+            group.add(mesh);
+            shatterCubes.push(mesh);
+          }
+        }
+      }
     }
 
     function buildSunlitStudy() {
@@ -401,6 +476,8 @@
     sceneSelect.addEventListener("change", (e) => {
       currentMode = e.target.value;
       if (currentMode === "stellarator") buildStellarator(parseInt(twistSlider.value, 10));
+      else if (currentMode === "pagoda") buildPagodaTemple();
+      else if (currentMode === "shatter") buildShatterCluster();
       else if (currentMode === "study") buildSunlitStudy();
       else if (currentMode === "synthVideo") initPointCloudMesh();
     });
@@ -435,7 +512,6 @@
       }
     });
 
-    // Snapshot 3D Image (.png)
     document.getElementById("snapBtn").addEventListener("click", () => {
       const link = document.createElement("a");
       link.download = "gemini-4-argon-3d-snapshot.png";
@@ -444,7 +520,6 @@
       statusText.textContent = "Saved 3D PNG Snapshot!";
     });
 
-    // Record 3D Video (.webm)
     let mediaRecorder = null;
     let recordedChunks = [];
     const recBtn = document.getElementById("recBtn");
@@ -490,7 +565,18 @@
         group.rotation.y += dt * 0.38 * speed;
       }
 
-      if (currentMode === "userVideo" && videoElem && videoElem.readyState >= 2) {
+      if (currentMode === "pagoda") {
+        for (const l of pagodaLanterns) {
+          l.position.y = l.userData.baseY + Math.sin(t * 2.0 + l.userData.phase) * 0.18;
+        }
+      } else if (currentMode === "shatter") {
+        const pulse = Math.max(0, Math.sin(t * 1.6 * speed)) * 1.35;
+        for (const c of shatterCubes) {
+          c.position.copy(c.userData.home).addScaledVector(c.userData.dir, pulse);
+          c.rotation.x += dt * 1.4;
+          c.rotation.y += dt * 1.8;
+        }
+      } else if (currentMode === "userVideo" && videoElem && videoElem.readyState >= 2) {
         updatePointCloudFromSource(videoElem, parseInt(twistSlider.value, 10));
       } else if (currentMode === "synthVideo" && depthPoints) {
         const posAttr = depthPoints.geometry.attributes.position;
