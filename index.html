@@ -196,7 +196,6 @@
           <option value="shatter">3. Crystalline Voxel Shatter Cluster</option>
           <option value="study">4. Sunlit Ray-Traced Study</option>
           <option value="synthVideo">5. Live Video-to-3D Wave Mesh</option>
-          <option value="fellowship">6. AI Leaders Fellowship Photo -> 3D Mesh</option>
         </select>
       </div>
       <div class="control-row">
@@ -481,16 +480,6 @@
       else if (currentMode === "shatter") buildShatterCluster();
       else if (currentMode === "study") buildSunlitStudy();
       else if (currentMode === "synthVideo") initPointCloudMesh();
-      else if (currentMode === "fellowship") {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.onload = () => {
-          initPointCloudMesh();
-          updatePointCloudFromSource(img, parseInt(twistSlider.value, 10));
-          statusText.textContent = "3D Depth Point Cloud: AI Leaders Fellowship (Google Cloud / PSEB)";
-        };
-        img.src = "./assets/ai_leaders_fellowship.png";
-      }
     });
 
     twistSlider.addEventListener("input", (e) => {
