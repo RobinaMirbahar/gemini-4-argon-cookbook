@@ -41,10 +41,22 @@ $Headers = @{
 
 Write-Host "Uploading built-from-scratch 3D examples and renders to https://github.com/$Owner/$RepoName ..." -ForegroundColor Cyan
 
+Remove-Item -Path (Join-Path $PSScriptRoot "assets\ai_leaders_fellowship.png") -Force -ErrorAction SilentlyContinue
+try {
+    $OldUrl = "https://api.github.com/repos/$Owner/$RepoName/contents/assets/ai_leaders_fellowship.png"
+    $OldFile = Invoke-RestMethod -Uri ("$OldUrl" + "?ref=$Branch") -Method Get -Headers $Headers -TimeoutSec 15
+    $DelBody = @{
+        message = "chore: remove personal photo from repository"
+        sha     = $OldFile.sha
+        branch  = $Branch
+    } | ConvertTo-Json
+    $null = Invoke-RestMethod -Uri $OldUrl -Method Delete -Headers $Headers -Body $DelBody -ContentType "application/json" -TimeoutSec 15
+    Write-Host "  [OK] Removed assets/ai_leaders_fellowship.png from GitHub" -ForegroundColor Yellow
+} catch {}
+
 $FilesToUpload = @(
     "README.md",
     "index.html",
-    "assets/ai_leaders_fellowship.png",
     "assets/argon_3d_pagoda_temple.png",
     "assets/argon_3d_shatter_physics.png",
     "assets/argon_3d_robotics_ik.png",
