@@ -44,6 +44,7 @@ Write-Host "Uploading built-from-scratch 3D examples and renders to https://gith
 $FilesToUpload = @(
     "README.md",
     "index.html",
+    "assets/ai_leaders_fellowship.png",
     "assets/argon_3d_pagoda_temple.png",
     "assets/argon_3d_shatter_physics.png",
     "assets/argon_3d_robotics_ik.png",
