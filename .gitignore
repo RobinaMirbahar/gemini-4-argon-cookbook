@@ -1,0 +1,25 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Node
+node_modules/
+dist/
+
+# Environment variables
+.env
+.env.local
+
+# Generated outputs
+output/
+*.ppm
+*.bmp
+*.wav
+*.png
+
+# OS
+.DS_Store
+Thumbs.db
