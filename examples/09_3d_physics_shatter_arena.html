@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini 4 Argon — 3D Rigid-Body Shatter &amp; Voxel Physics Arena</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #070b14; color: #f8fafc; font-family: "Inter", system-ui, sans-serif; overflow: hidden; }
+    #hud {
+      position: absolute; top: 20px; left: 20px; z-index: 10;
+      background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(14px);
+      border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 14px;
+      padding: 18px 22px; max-width: 390px;
+    }
+    h1 { font-size: 18px; margin-bottom: 6px; color: #38bdf8; }
+    p { font-size: 12.5px; color: #94a3b8; line-height: 1.45; margin-bottom: 12px; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+    button {
+      background: linear-gradient(135deg, #e11d48, #be123c); color: #fff;
+      border: 1px solid #fda4af; border-radius: 8px; padding: 8px 13px;
+      font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    button.reset { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-color: #93c5fd; }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    <h1>💥 3D Crystalline Shatter Physics</h1>
+    <p>Built from scratch in Three.js: click any 3D crystal tower or trigger a radial kinetic shockwave to fracture structures into 280+ rigid-body shards with gravity &amp; floor restitution.</p>
+    <div class="controls">
+      <button id="boomBtn">⚡ Trigger 3D Shockwave</button>
+      <button id="resetBtn" class="reset">🔄 Rebuild Towers</button>
+    </div>
+  </div>
+  <script type="module">
+    import * as THREE from "https://unpkg.com/three@0.169.0/build/three.module.js";
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x070b14, 0.025);
+    const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100);
+    camera.position.set(0, 6.5, 14.5);
+    camera.lookAt(0, 1.5, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    document.body.appendChild(renderer.domElement);
+
+    scene.add(new THREE.AmbientLight(0x93c5fd, 0.65));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    dirLight.position.set(6, 12, 8);
+    scene.add(dirLight);
+
+    const grid = new THREE.GridHelper(28, 28, 0x38bdf8, 0x1e293b);
+    scene.add(grid);
+
+    const shards = [];
+    const shardGroup = new THREE.Group();
+    scene.add(shardGroup);
+
+    const palette = [0x38bdf8, 0x818cf8, 0xf43f5e, 0xfbbc04, 0x34d399];
+
+    function buildCrystalTowers() {
+      while (shardGroup.children.length) {
+        const m = shardGroup.children[0];
+        shardGroup.remove(m);
+        m.geometry.dispose();
+      }
+      shards.length = 0;
+
+      const towerOffsets = [-4.2, -1.4, 1.4, 4.2];
+      towerOffsets.forEach((tx, tIdx) => {
+        for (let y = 0; y < 9; y++) {
+          for (let x = -1; x <= 1; x++) {
+            for (let z = -1; z <= 1; z++) {
+              const geom = new THREE.OctahedronGeometry(0.36, 0);
+              const mat = new THREE.MeshPhysicalMaterial({
+                color: palette[(tIdx + y) % palette.length],
+                metalness: 0.35,
+                roughness: 0.12,
+                clearcoat: 1.0,
+              });
+              const mesh = new THREE.Mesh(geom, mat);
+              mesh.position.set(tx + x * 0.45, 0.38 + y * 0.52, z * 0.45);
+              shardGroup.add(mesh);
+              shards.push({
+                mesh,
+                vx: 0, vy: 0, vz: 0,
+                rx: 0, ry: 0, rz: 0,
+                awake: false,
+              });
+            }
+          }
+        }
+      });
+    }
+
+    function triggerShockwave(epicenter = new THREE.Vector3(0, 1.5, 0)) {
+      shards.forEach((s) => {
+        const delta = s.mesh.position.clone().sub(epicenter);
+        const dist = Math.max(0.6, delta.length());
+        const impulse = 9.5 / dist;
+        delta.normalize();
+        s.vx = delta.x * impulse + (Math.random() - 0.5) * 3.5;
+        s.vy = Math.abs(delta.y) * impulse + Math.random() * 5.5;
+        s.vz = delta.z * impulse + (Math.random() - 0.5) * 3.5;
+        s.rx = (Math.random() - 0.5) * 8;
+        s.ry = (Math.random() - 0.5) * 8;
+        s.rz = (Math.random() - 0.5) * 8;
+        s.awake = true;
+      });
+    }
+
+    buildCrystalTowers();
+    document.getElementById("boomBtn").addEventListener("click", () => triggerShockwave());
+    document.getElementById("resetBtn").addEventListener("click", () => buildCrystalTowers());
+
+    window.addEventListener("pointerdown", (e) => {
+      if (e.target.closest("#hud")) return;
+      triggerShockwave(new THREE.Vector3((e.clientX / innerWidth - 0.5) * 8, 2.0, 0));
+    });
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const dt = Math.min(0.033, clock.getDelta());
+      shards.forEach((s) => {
+        if (!s.awake) return;
+        s.vy -= 14.5 * dt; // Gravity
+        s.mesh.position.x += s.vx * dt;
+        s.mesh.position.y += s.vy * dt;
+        s.mesh.position.z += s.vz * dt;
+        s.mesh.rotation.x += s.rx * dt;
+        s.mesh.rotation.y += s.ry * dt;
+        s.mesh.rotation.z += s.rz * dt;
+        if (s.mesh.position.y < 0.28) {
+          s.mesh.position.y = 0.28;
+          s.vy *= -0.52;
+          s.vx *= 0.86;
+          s.vz *= 0.86;
+        }
+      });
+      shardGroup.rotation.y += dt * 0.15;
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
