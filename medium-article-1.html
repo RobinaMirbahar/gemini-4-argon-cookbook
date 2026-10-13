@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building a Live 3D &amp; 1M-Token Engineering Cookbook with Google DeepMind's Gemini 4 Argon</title>
+  <meta name="description" content="Hands-on guide to Google DeepMind's Gemini 4 Argon (1M/1M unified tokens, Interactions API v2, and 87% ERQA 3D spatial reasoning) with live Three.js simulations and Python examples." />
+  <meta property="og:title" content="Building a Live 3D &amp; 1M-Token Engineering Cookbook with Google DeepMind's Gemini 4 Argon" />
+  <meta property="og:description" content="Hands-on guide to Google DeepMind's Gemini 4 Argon with live Three.js 3D simulations and Python examples." />
+  <meta property="og:image" content="https://raw.githubusercontent.com/RobinaMirbahar/gemini-4-argon-cookbook/main/assets/robina_gemini_4_argon_infographic.jpg" />
+  <meta name="author" content="Robina Mirbahar" />
+  <style>
+    body { font-family: Georgia, serif; max-width: 740px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #242424; }
+    h1 { font-size: 36px; line-height: 1.25; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    h2 { font-size: 26px; margin-top: 36px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    h3 { font-size: 21px; margin-top: 28px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    figure { margin: 28px 0; text-align: center; }
+    img { max-width: 100%; height: auto; border-radius: 6px; }
+    figcaption { font-size: 14px; color: #6b6b6b; margin-top: 8px; }
+    pre { background: #f2f2f2; padding: 18px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, monospace; font-size: 14px; line-height: 1.5; }
+    .copy-bar { background: #0f172a; color: #fff; padding: 16px 20px; border-radius: 10px; margin-bottom: 30px; font-family: sans-serif; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .copy-bar button, .copy-bar a { background: #10b981; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="copy-bar">
+    <button onclick="copyArticle()">📋 Step 1: Click Here to Copy Article 1</button>
+    <a href="https://medium.com/new-story" target="_blank" style="background:#2563eb;">✍️ Step 2: Open Medium New Story &amp; Press Ctrl+V</a>
+    <a href="./medium-article-2.html" style="background:#7c3aed;">➡️ Switch to Article 2</a>
+    <span id="msg" style="color:#34d399;font-weight:bold;"></span>
+  </div>
+
+  <article id="story-content">
+    <h1>Building a Live 3D &amp; 1M-Token Engineering Cookbook with Google DeepMind's Gemini 4 Argon</h1>
+    <p><em>Hands-on guide to Google DeepMind's Gemini 4 Argon (1M/1M unified tokens, Interactions API v2, and 87% ERQA 3D spatial reasoning) with live Three.js simulations and Python examples.</em></p>
+
+    <figure>
+      <img src="https://raw.githubusercontent.com/RobinaMirbahar/gemini-4-argon-cookbook/main/assets/robina_gemini_4_argon_infographic.jpg" alt="Robina's Gemini 4 Argon 3D and Coding Cookbook" />
+      <figcaption>Robina's Gemini 4 Argon 3D &amp; Coding Cookbook Overview</figcaption>
+    </figure>
+
+    <p>Google DeepMind recently introduced <strong>Gemini 4 Argon (gemini-4-argon)</strong>, marking a major architectural leap for long-horizon software engineering and 3D spatial reasoning:</p>
+    <ul>
+      <li><strong>1,000,000 Input / 1,000,000 Output Unified Token Horizon</strong> (a 15.6x increase in output capacity from 64K tokens via the Long-Decode Continuation Protocol)</li>
+      <li><strong>87.0% SOTA on Embodied 3D Reasoning (ERQA)</strong> and <strong>91.7% on LVBench</strong> (long video understanding)</li>
+      <li><strong>77.9% SOTA on DeepSWE v1.1</strong> (autonomous software engineering and multi-file refactoring)</li>
+      <li><strong>First-Class thought Summaries &amp; Cryptographic Signatures</strong> via the <strong>Gemini Interactions API (client.interactions.create)</strong></li>
+    </ul>
+
+    <p>Instead of just reading the benchmarks, I built and open-sourced the <a href="https://github.com/RobinaMirbahar/gemini-4-argon-cookbook"><strong>Gemini 4 Argon Cookbook &amp; Live 3D Starter Kit</strong></a> from scratch — complete with live playable WebGL 3D simulations, a 100% pure-Python zero-dependency 3D raytracer, a procedural 3D Wavefront .obj Pagoda generator, and production 1M-token continuation loops.</p>
+
+    <h2>Try the Live 3D Demos in Your Browser</h2>
+    <ul>
+      <li><a href="https://robinamirbahar.github.io/gemini-4-argon-cookbook/"><strong>Main Live 3D Spatial &amp; Image/Video-to-3D Studio</strong></a></li>
+      <li><a href="https://robinamirbahar.github.io/gemini-4-argon-cookbook/examples/09_3d_physics_shatter_arena.html"><strong>Interactive 3D Crystalline Shatter Physics Arena</strong></a></li>
+      <li><a href="https://robinamirbahar.github.io/gemini-4-argon-cookbook/examples/10_3d_robotics_ik_simulator.html"><strong>Interactive 6-DOF 3D Robotics Inverse Kinematics &amp; Ballistic Simulator</strong></a></li>
+      <li><a href="https://github.com/RobinaMirbahar/gemini-4-argon-cookbook"><strong>Full Source Code on GitHub (RobinaMirbahar/gemini-4-argon-cookbook)</strong></a></li>
+    </ul>
+
+    <h2>1. Unifying 1M Input &amp; 1M Output Tokens (Long-Decode Continuation Protocol)</h2>
+    <p>Generating up to <strong>1,000,000 output tokens</strong> in a single logical generation requires resilient connection handling. Gemini 4 Argon introduces the <strong>Long-Decode Continuation Protocol</strong> in the <strong>Gemini Interactions API v2</strong>.</p>
+    <p>When a generation slice reaches a per-turn boundary while the model still has more content to emit, <code>interaction.status</code> returns <code>"incomplete"</code> along with a cryptographic <code>continuation_token</code>. You simply pass that <code>continuation_token</code> into the next <code>client.interactions.create(...)</code> call to seamlessly resume decoding:</p>
+
+<pre>from google import genai
+
+client = genai.Client()
+
+def generate_up_to_1m_tokens(prompt: str) -&gt; str:
+    full_output: list[str] = []
+    continuation_token: str | None = None
+
+    while True:
+        kwargs = {
+            "model": "gemini-4-argon",
+            "generation_config": {
+                "thinking_level": "high",
+                "thinking_summaries": "auto",
+                "max_output_tokens": 1_000_000,
+            },
+        }
+        if continuation_token is None:
+            kwargs["input"] = prompt
+        else:
+            kwargs["continuation_token"] = continuation_token
+
+        interaction = client.interactions.create(**kwargs)
+
+        for item in interaction.outputs or []:
+            if getattr(item, "type", None) == "text":
+                full_output.append(item.text)
+
+        if interaction.status == "incomplete" and getattr(interaction, "continuation_token", None):
+            continuation_token = interaction.continuation_token
+            continue
+        break
+
+    return "".join(full_output)</pre>
+
+    <p>Full runnable implementations in Python (<a href="https://github.com/RobinaMirbahar/gemini-4-argon-cookbook/blob/main/examples/01_long_decode_continuation.py">01_long_decode_continuation.py</a>) and TypeScript (<a href="https://github.com/RobinaMirbahar/gemini-4-argon-cookbook/blob/main/examples/01_long_decode_continuation.ts">01_long_decode_continuation.ts</a>) are available in the repository.</p>
+
+    <h2>2. First-Class thought Steps &amp; Cryptographic Signatures</h2>
+    <p>With <code>client.interactions.create</code>, reasoning is no longer hidden in raw text blocks. Gemini 4 Argon emits structured <code>thought</code> outputs containing both a human-readable <code>summary</code> and a verifiable <code>signature</code> (<code>thought_signature</code>) so multi-turn agentic workflows can preserve exact reasoning state across turns:</p>
+
+<pre>stream = client.interactions.create(
+    model="gemini-4-argon",
+    input="Design a lock-free ring buffer in Rust and prove linearizability.",
+    stream=True,
+    generation_config={
+        "thinking_level": "high",
+        "thinking_summaries": "auto",
+    },
+)
+
+for chunk in stream:
+    if chunk.event_type == "content.delta":
+        if chunk.delta.type == "thought_summary":
+            print(f"[Thought] {chunk.delta.content.text}")
+        elif chunk.delta.type == "thought_signature":
+            print(f"[Signature] {chunk.delta.signature[:24]}...")
+        elif chunk.delta.type == "text":
+            print(chunk.delta.text, end="", flush=True)</pre>
+
+    <h2>3. Built-From-Scratch 3D Engines &amp; Interactive WebGL Simulations (87% ERQA SOTA)</h2>
+    <p>To test Gemini 4 Argon's 3D spatial reasoning, I created four 100% original, built-from-scratch 3D engines and interactive simulations:</p>
+
+    <h3>A. Procedural 5-Tier 3D Pagoda Temple (.OBJ Generator + Live WebGL)</h3>
+    <figure>
+      <img src="https://raw.githubusercontent.com/RobinaMirbahar/gemini-4-argon-cookbook/main/assets/argon_3d_pagoda_temple.png" alt="Procedural 3D Pagoda Temple" />
+      <figcaption>Procedural 5-Tier 3D Pagoda Temple generated from scratch</figcaption>
+    </figure>
+    <p><a href="https://github.com/RobinaMirbahar/gemini-4-argon-cookbook/blob/main/examples/08_procedural_3d_pagoda_temple.py">examples/08_procedural_3d_pagoda_temple.py</a> uses pure Python math with zero external dependencies to procedurally generate a multi-tiered 3D architectural Pagoda Temple as a standard Wavefront .obj 3D mesh, complete with upturned eaves, corner pillars, and a golden finial spire.</p>
+
+    <h3>B. Interactive 3D Crystalline Shatter &amp; Voxel Physics Arena</h3>
+    <figure>
+      <img src="https://raw.githubusercontent.com/RobinaMirbahar/gemini-4-argon-cookbook/main/assets/argon_3d_shatter_physics.png" alt="3D Crystalline Shatter Physics Arena" />
+      <figcaption>Interactive 3D Crystalline Shatter &amp; Voxel Physics Arena in Three.js</figcaption>
+    </figure>
+    <p><a href="https://robinamirbahar.github.io/gemini-4-argon-cookbook/examples/09_3d_physics_shatter_arena.html">Play Live in Your Browser</a>: Click anywhere in 3D space to fire high-velocity kinetic spheres via 3D raycasting. On impact, a 240-shard crystal monolith fractures using radial impulse transfer, gravity, angular momentum, floor restitution, and expanding shockwave rings.</p>
+
+    <h3>C. 6-DOF 3D Robotics Inverse Kinematics &amp; Ballistic Simulator</h3>
+    <figure>
+      <img src="https://raw.githubusercontent.com/RobinaMirbahar/gemini-4-argon-cookbook/main/assets/argon_3d_robotics_ik.png" alt="6-DOF 3D Robotics IK Simulator" />
+      <figcaption>6-DOF 3D Robotics Inverse Kinematics &amp; Ballistic Simulator</figcaption>
+    </figure>
+    <p><a href="https://robinamirbahar.github.io/gemini-4-argon-cookbook/examples/10_3d_robotics_ik_simulator.html">Play Live in Your Browser</a>: Solves 2-link planar + base yaw 3D inverse kinematics and parabolic ballistic trajectories in real time to toss payloads onto a moving target platform.</p>
+
+    <h3>D. 100% Pure-Python Zero-Dependency 3D Ray-Tracing Engine</h3>
+    <figure>
+      <img src="https://raw.githubusercontent.com/RobinaMirbahar/gemini-4-argon-cookbook/main/assets/argon_sunlit_study.png" alt="Pure-Python 3D Ray-Traced Scene" />
+      <figcaption>100% Pure-Python Zero-Dependency 3D Ray-Traced Scene</figcaption>
+    </figure>
+    <p><a href="https://github.com/RobinaMirbahar/gemini-4-argon-cookbook/blob/main/examples/04_vanilla_3d_raytracer.py">examples/04_vanilla_3d_raytracer.py</a> implements a complete 3D ray-tracing engine using only the Python standard library (math, struct, zlib) — rendering recursive mirror reflections, Blinn-Phong specular highlights, soft area-light shadows, and a procedural checkerboard parquet floor directly to .ppm and .png.</p>
+
+    <h2>Quick Start</h2>
+<pre>git clone https://github.com/RobinaMirbahar/gemini-4-argon-cookbook.git
+cd gemini-4-argon-cookbook
+pip install -r requirements.txt
+
+python examples/08_procedural_3d_pagoda_temple.py
+python examples/04_vanilla_3d_raytracer.py
+python examples/07_multimodal_image_video_to_3d.py --demo
+python examples/01_long_decode_continuation.py --demo</pre>
+
+    <p>Check out the full open-source repository at <a href="https://github.com/RobinaMirbahar/gemini-4-argon-cookbook"><strong>github.com/RobinaMirbahar/gemini-4-argon-cookbook</strong></a> and try the <a href="https://robinamirbahar.github.io/gemini-4-argon-cookbook/"><strong>Live 3D Studio</strong></a>!</p>
+  </article>
+
+  <script>
+    function copyArticle() {
+      const el = document.getElementById("story-content");
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      document.execCommand("copy");
+      sel.removeAllRanges();
+      document.getElementById("msg").textContent = "✅ Copied! Now open Medium New Story and press Ctrl+V.";
+    }
+  </script>
+</body>
+</html>
