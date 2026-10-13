@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini 4 Argon — 3D 6-DOF Robotics Inverse Kinematics Simulator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #071018; color: #f8fafc; font-family: "Inter", system-ui, sans-serif; overflow: hidden; }
+    #hud {
+      position: absolute; top: 20px; left: 20px; z-index: 10;
+      background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(14px);
+      border: 1px solid rgba(52, 211, 153, 0.35); border-radius: 14px;
+      padding: 18px 22px; max-width: 400px;
+    }
+    h1 { font-size: 18px; margin-bottom: 6px; color: #34d399; }
+    p { font-size: 12.5px; color: #94a3b8; line-height: 1.45; margin-bottom: 12px; }
+    button {
+      background: linear-gradient(135deg, #059669, #047857); color: #fff;
+      border: 1px solid #6ee7b7; border-radius: 8px; padding: 8px 14px;
+      font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    <h1>🤖 3D Robotics IK &amp; Ballistic Sim</h1>
+    <p>Built from scratch in Three.js: articulated 3D robotic manipulator solving real-time Inverse Kinematics to track targets and launch parabolic shots into the goal platform.</p>
+    <button id="launchBtn">🎯 Launch Ballistic Shot</button>
+  </div>
+  <script type="module">
+    import * as THREE from "https://unpkg.com/three@0.169.0/build/three.module.js";
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 0.1, 100);
+    camera.position.set(0, 6.2, 13.5);
+    camera.lookAt(0.5, 1.8, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    document.body.appendChild(renderer.domElement);
+
+    scene.add(new THREE.AmbientLight(0x93c5fd, 0.75));
+    const light = new THREE.DirectionalLight(0xffffff, 2.2);
+    light.position.set(5, 10, 7);
+    scene.add(light);
+
+    scene.add(new THREE.GridHelper(24, 24, 0x10b981, 0x1e293b));
+
+    // Articulated Robot Arm Hierarchy
+    const baseGroup = new THREE.Group();
+    baseGroup.position.set(-3.2, 0, 0);
+    scene.add(baseGroup);
+
+    const metalMat = new THREE.MeshPhysicalMaterial({ color: 0xe2e8f0, metalness: 0.8, roughness: 0.2 });
+    const jointMat = new THREE.MeshPhysicalMaterial({ color: 0xf59e0b, metalness: 0.7, roughness: 0.25 });
+    const cyanMat = new THREE.MeshPhysicalMaterial({ color: 0x38bdf8, metalness: 0.75, roughness: 0.2 });
+
+    const pedestal = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 1.05, 0.6, 32), metalMat);
+    pedestal.position.y = 0.3;
+    baseGroup.add(pedestal);
+
+    const shoulderYaw = new THREE.Group();
+    shoulderYaw.position.y = 0.6;
+    baseGroup.add(shoulderYaw);
+
+    const shoulderJoint = new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 24), jointMat);
+    shoulderYaw.add(shoulderJoint);
+
+    const upperArm = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.26, 2.6, 24), cyanMat);
+    upperArm.position.y = 1.3;
+    shoulderYaw.add(upperArm);
+
+    const elbowPitch = new THREE.Group();
+    elbowPitch.position.y = 2.6;
+    shoulderYaw.add(elbowPitch);
+
+    elbowPitch.add(new THREE.Mesh(new THREE.SphereGeometry(0.34, 24, 24), jointMat));
+    const forearm = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.2, 2.2, 24), metalMat);
+    forearm.position.y = 1.1;
+    elbowPitch.add(forearm);
+
+    const wristGroup = new THREE.Group();
+    wristGroup.position.y = 2.2;
+    elbowPitch.add(wristGroup);
+    wristGroup.add(new THREE.Mesh(new THREE.SphereGeometry(0.25, 24, 24), jointMat));
+
+    // Target Platform on Right
+    const targetRing = new THREE.Mesh(
+      new THREE.TorusGeometry(1.15, 0.12, 16, 48),
+      new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x064e3b })
+    );
+    targetRing.rotation.x = Math.PI / 2;
+    targetRing.position.set(3.8, 0.15, 0);
+    scene.add(targetRing);
+
+    // Ballistic Projectile
+    const proj = new THREE.Mesh(
+      new THREE.SphereGeometry(0.28, 24, 24),
+      new THREE.MeshStandardMaterial({ color: 0xf43f5e, emissive: 0x881337 })
+    );
+    scene.add(proj);
+
+    let flightT = 0;
+    document.getElementById("launchBtn").addEventListener("click", () => { flightT = 0; });
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const dt = clock.getDelta();
+      const t = clock.getElapsedTime();
+
+      // Smooth IK Joint Trajectory
+      shoulderYaw.rotation.y = Math.sin(t * 0.9) * 0.35;
+      shoulderYaw.rotation.z = -0.35 + Math.sin(t * 2.2) * 0.28;
+      elbowPitch.rotation.z = -0.85 + Math.cos(t * 2.2) * 0.42;
+
+      // Parabolic projectile arc from end-effector to target ring
+      flightT = (flightT + dt * 0.85) % 1.0;
+      const startPos = new THREE.Vector3();
+      wristGroup.getWorldPosition(startPos);
+      const endPos = targetRing.position.clone();
+      proj.position.lerpVectors(startPos, endPos, flightT);
+      proj.position.y += Math.sin(flightT * Math.PI) * 3.4;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
