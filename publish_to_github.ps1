@@ -57,6 +57,7 @@ try {
 $FilesToUpload = @(
     "README.md",
     "index.html",
+    "assets/robina_gemini_4_argon_infographic.jpg",
     "assets/argon_3d_pagoda_temple.png",
     "assets/argon_3d_shatter_physics.png",
     "assets/argon_3d_robotics_ik.png",
