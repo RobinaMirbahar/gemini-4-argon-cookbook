@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini 4 Argon — Live 3D Spatial &amp; Image/Video-to-3D Studio</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --panel: rgba(15, 23, 42, 0.86);
+      --border: rgba(56, 189, 248, 0.32);
+      --blue: #4285f4;
+      --cyan: #38bdf8;
+      --green: #34d399;
+      --amber: #fbbc04;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+    #canvas-container {
+      position: absolute;
+      inset: 0;
+    }
+    .hud-header {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      pointer-events: none;
+      z-index: 10;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .brand-card {
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 22px;
+      max-width: 450px;
+      pointer-events: auto;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.14);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      background: linear-gradient(90deg, #fff, #7dd3fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .metric {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 8px 11px;
+    }
+    .metric-val { font-size: 15px; font-weight: 700; color: #fff; }
+    .metric-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .controls-card {
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 310px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+    }
+    .control-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      gap: 10px;
+    }
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    button, .file-label {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      border: 1px solid rgba(147, 197, 253, 0.35);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      display: inline-block;
+    }
+    button:hover, .file-label:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+    }
+    button.secondary {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(148, 163, 184, 0.35);
+    }
+    button.record-active {
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      border-color: #fca5a5;
+    }
+    input[type="range"] { accent-color: var(--cyan); width: 130px; }
+    input[type="file"] { display: none; }
+    .status-pill {
+      font-size: 11px;
+      color: var(--green);
+      font-family: monospace;
+      text-align: center;
+      padding-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div id="canvas-container"></div>
+
+  <div class="hud-header">
+    <div class="brand-card">
+      <div class="badge">● Gemini 4 Argon • Live 3D Spatial Engine</div>
+      <h1>Image &amp; Video-to-3D Spatial Studio</h1>
+      <p class="subtitle">
+        Explore Gemini 4 Argon's 3D spatial reasoning (87% ERQA SOTA): switch between the
+        <b>Stellarator Fusion Coils</b>, <b>Sunlit Ray-Traced Study</b>, or upload any
+        <b>Image / Video</b> to reconstruct a live 3D depth-mapped point cloud!
+      </p>
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-val">1M / 1M</div>
+          <div class="metric-label">Unified Input/Output Tokens</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">87.0% SOTA</div>
+          <div class="metric-label">Embodied 3D Reasoning (ERQA)</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">91.7% SOTA</div>
+          <div class="metric-label">Long Video Understanding</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">77.9% SOTA</div>
+          <div class="metric-label">DeepSWE v1.1 Engineering</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-card">
+      <div class="control-row">
+        <span>3D Scene Preset</span>
+        <select id="sceneSelect" style="background:#0f172a;color:#fff;border:1px solid #334155;border-radius:6px;padding:4px 8px;font-size:12px;">
+          <option value="stellarator">1. Stellarator Fusion Coils</option>
+          <option value="study">2. Sunlit Ray-Traced Study</option>
+          <option value="synthVideo">3. Live Video-to-3D Wave Mesh</option>
+        </select>
+      </div>
+      <div class="control-row">
+        <span>Helical / Depth Scale</span>
+        <input id="twistSlider" type="range" min="2" max="10" step="1" value="5" />
+      </div>
+      <div class="control-row">
+        <span>Rotation &amp; Sim Speed</span>
+        <input id="speedSlider" type="range" min="0.1" max="3.0" step="0.1" value="1.1" />
+      </div>
+
+      <label class="file-label" for="mediaInput">
+        🖼️📹 Upload Image or Video -> 3D Mesh
+      </label>
+      <input id="mediaInput" type="file" accept="image/*,video/*" />
+
+      <div class="btn-group">
+        <button id="snapBtn" class="secondary">📸 Save 3D Image</button>
+        <button id="recBtn" class="secondary">🎥 Record 3D Video</button>
+      </div>
+      <div id="statusText" class="status-pill">Drag mouse to orbit • Scroll to zoom</div>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from "https://unpkg.com/three@0.169.0/build/three.module.js";
+
+    const container = document.getElementById("canvas-container");
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x070b14, 0.032);
+
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 120);
+    camera.position.set(0, 2.8, 9.2);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    scene.add(new THREE.AmbientLight(0x93c5fd, 0.7));
+    const light1 = new THREE.PointLight(0x38bdf8, 50, 35);
+    light1.position.set(5, 6, 6);
+    scene.add(light1);
+
+    const light2 = new THREE.PointLight(0xfbbc04, 40, 35);
+    light2.position.set(-6, -3, 5);
+    scene.add(light2);
+
+    const gridHelper = new THREE.GridHelper(24, 24, 0x1e3a8a, 0x0f172a);
+    gridHelper.position.y = -2.6;
+    scene.add(gridHelper);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    let currentMode = "stellarator";
+    let videoElem = null;
+    let depthPoints = null;
+    let depthCanvas = document.createElement("canvas");
+    let depthCtx = depthCanvas.getContext("2d", { willReadFrequently: true });
+    const GRID_W = 96;
+    const GRID_H = 64;
+    depthCanvas.width = GRID_W;
+    depthCanvas.height = GRID_H;
+
+    function clearGroup() {
+      while (group.children.length > 0) {
+        const obj = group.children[0];
+        group.remove(obj);
+        if (obj.geometry) obj.geometry.dispose();
+      }
+      depthPoints = null;
+    }
+
+    function buildStellarator(twist = 5) {
+      clearGroup();
+      const geom = new THREE.TorusKnotGeometry(2.25, 0.48, 240, 40, twist, 3);
+      const mat = new THREE.MeshPhysicalMaterial({
+        color: 0x3b82f6,
+        emissive: 0x0f172a,
+        roughness: 0.16,
+        metalness: 0.82,
+        clearcoat: 1.0,
+      });
+      group.add(new THREE.Mesh(geom, mat));
+
+      const pCount = 1000;
+      const pos = new Float32Array(pCount * 3);
+      for (let i = 0; i < pCount; i++) {
+        const a = (i / pCount) * Math.PI * 2 * twist;
+        const r = 2.25 + 0.65 * Math.cos(a * 1.5);
+        pos[i * 3] = r * Math.cos(a);
+        pos[i * 3 + 1] = 0.9 * Math.sin(a * 1.5);
+        pos[i * 3 + 2] = r * Math.sin(a);
+      }
+      const pGeom = new THREE.BufferGeometry();
+      pGeom.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+      group.add(new THREE.Points(pGeom, new THREE.PointsMaterial({ color: 0x38bdf8, size: 0.06 })));
+    }
+
+    function buildSunlitStudy() {
+      clearGroup();
+      const core = new THREE.Mesh(
+        new THREE.SphereGeometry(1.45, 64, 64),
+        new THREE.MeshPhysicalMaterial({ color: 0x4285f4, metalness: 0.85, roughness: 0.1, clearcoat: 1.0 })
+      );
+      group.add(core);
+
+      const gold = new THREE.Mesh(
+        new THREE.SphereGeometry(0.9, 48, 48),
+        new THREE.MeshPhysicalMaterial({ color: 0xfbbc04, metalness: 0.9, roughness: 0.15 })
+      );
+      gold.position.set(-2.6, -0.5, 0.5);
+      group.add(gold);
+
+      const ruby = new THREE.Mesh(
+        new THREE.SphereGeometry(0.82, 48, 48),
+        new THREE.MeshPhysicalMaterial({ color: 0xea4335, metalness: 0.4, roughness: 0.08, clearcoat: 1.0 })
+      );
+      ruby.position.set(2.5, -0.6, 0.6);
+      group.add(ruby);
+
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(2.3, 0.04, 16, 120),
+        new THREE.MeshBasicMaterial({ color: 0x7dd3fc })
+      );
+      ring.rotation.x = Math.PI / 2.6;
+      group.add(ring);
+    }
+
+    function initPointCloudMesh() {
+      clearGroup();
+      const count = GRID_W * GRID_H;
+      const positions = new Float32Array(count * 3);
+      const colors = new Float32Array(count * 3);
+      let k = 0;
+      for (let y = 0; y < GRID_H; y++) {
+        for (let x = 0; x < GRID_W; x++) {
+          positions[k * 3] = (x / GRID_W - 0.5) * 7.2;
+          positions[k * 3 + 1] = (0.5 - y / GRID_H) * 4.8;
+          positions[k * 3 + 2] = 0;
+          colors[k * 3] = 0.25;
+          colors[k * 3 + 1] = 0.75;
+          colors[k * 3 + 2] = 0.98;
+          k++;
+        }
+      }
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      geom.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+      const mat = new THREE.PointsMaterial({ size: 0.085, vertexColors: true });
+      depthPoints = new THREE.Points(geom, mat);
+      group.add(depthPoints);
+    }
+
+    function updatePointCloudFromSource(sourceElem, depthMultiplier) {
+      if (!depthPoints) initPointCloudMesh();
+      depthCtx.drawImage(sourceElem, 0, 0, GRID_W, GRID_H);
+      const imgData = depthCtx.getImageData(0, 0, GRID_W, GRID_H).data;
+      const posAttr = depthPoints.geometry.attributes.position;
+      const colAttr = depthPoints.geometry.attributes.color;
+      for (let i = 0; i < GRID_W * GRID_H; i++) {
+        const r = imgData[i * 4] / 255;
+        const g = imgData[i * 4 + 1] / 255;
+        const b = imgData[i * 4 + 2] / 255;
+        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+        posAttr.array[i * 3 + 2] = (luma - 0.5) * 0.45 * depthMultiplier;
+        colAttr.array[i * 3] = r;
+        colAttr.array[i * 3 + 1] = g;
+        colAttr.array[i * 3 + 2] = b;
+      }
+      posAttr.needsUpdate = true;
+      colAttr.needsUpdate = true;
+    }
+
+    buildStellarator(5);
+
+    // Mouse Orbit Controls
+    let isDragging = false;
+    let prevX = 0, prevY = 0;
+    window.addEventListener("pointerdown", (e) => {
+      if (e.target.closest(".brand-card") || e.target.closest(".controls-card")) return;
+      isDragging = true;
+      prevX = e.clientX;
+      prevY = e.clientY;
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!isDragging) return;
+      group.rotation.y += (e.clientX - prevX) * 0.007;
+      group.rotation.x += (e.clientY - prevY) * 0.007;
+      prevX = e.clientX;
+      prevY = e.clientY;
+    });
+    window.addEventListener("pointerup", () => { isDragging = false; });
+    window.addEventListener("wheel", (e) => {
+      camera.position.z = Math.min(18, Math.max(4, camera.position.z + e.deltaY * 0.005));
+    });
+
+    const sceneSelect = document.getElementById("sceneSelect");
+    const twistSlider = document.getElementById("twistSlider");
+    const speedSlider = document.getElementById("speedSlider");
+    const mediaInput = document.getElementById("mediaInput");
+    const statusText = document.getElementById("statusText");
+
+    sceneSelect.addEventListener("change", (e) => {
+      currentMode = e.target.value;
+      if (currentMode === "stellarator") buildStellarator(parseInt(twistSlider.value, 10));
+      else if (currentMode === "study") buildSunlitStudy();
+      else if (currentMode === "synthVideo") initPointCloudMesh();
+    });
+
+    twistSlider.addEventListener("input", (e) => {
+      if (currentMode === "stellarator") buildStellarator(parseInt(e.target.value, 10));
+    });
+
+    mediaInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      if (file.type.startsWith("video/")) {
+        if (videoElem) videoElem.pause();
+        videoElem = document.createElement("video");
+        videoElem.src = url;
+        videoElem.muted = true;
+        videoElem.loop = true;
+        videoElem.play();
+        currentMode = "userVideo";
+        initPointCloudMesh();
+        statusText.textContent = "Reconstructing 3D Point Cloud from Video: " + file.name;
+      } else {
+        const img = new Image();
+        img.onload = () => {
+          currentMode = "userImage";
+          initPointCloudMesh();
+          updatePointCloudFromSource(img, parseInt(twistSlider.value, 10));
+          statusText.textContent = "Reconstructed 3D Point Cloud from Image: " + file.name;
+        };
+        img.src = url;
+      }
+    });
+
+    // Snapshot 3D Image (.png)
+    document.getElementById("snapBtn").addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.download = "gemini-4-argon-3d-snapshot.png";
+      link.href = renderer.domElement.toDataURL("image/png");
+      link.click();
+      statusText.textContent = "Saved 3D PNG Snapshot!";
+    });
+
+    // Record 3D Video (.webm)
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    const recBtn = document.getElementById("recBtn");
+    recBtn.addEventListener("click", () => {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        recBtn.textContent = "🎥 Record 3D Video";
+        recBtn.classList.remove("record-active");
+        return;
+      }
+      recordedChunks = [];
+      const stream = renderer.domElement.captureStream(30);
+      mediaRecorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+      mediaRecorder.ondataavailable = (ev) => { if (ev.data.size > 0) recordedChunks.push(ev.data); };
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: "video/webm" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "gemini-4-argon-3d-capture.webm";
+        a.click();
+        statusText.textContent = "Downloaded 3D Video (.webm)!";
+      };
+      mediaRecorder.start();
+      recBtn.textContent = "⏹ Stop Recording";
+      recBtn.classList.add("record-active");
+      statusText.textContent = "Recording live 3D WebGL video...";
+    });
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const dt = clock.getDelta();
+      const t = clock.getElapsedTime();
+      const speed = parseFloat(speedSlider.value);
+
+      if (!isDragging) {
+        group.rotation.y += dt * 0.38 * speed;
+      }
+
+      if (currentMode === "userVideo" && videoElem && videoElem.readyState >= 2) {
+        updatePointCloudFromSource(videoElem, parseInt(twistSlider.value, 10));
+      } else if (currentMode === "synthVideo" && depthPoints) {
+        const posAttr = depthPoints.geometry.attributes.position;
+        const depthScale = parseInt(twistSlider.value, 10) * 0.15;
+        let k = 0;
+        for (let y = 0; y < GRID_H; y++) {
+          for (let x = 0; x < GRID_W; x++) {
+            const dx = (x - GRID_W / 2) * 0.25;
+            const dy = (y - GRID_H / 2) * 0.25;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            posAttr.array[k * 3 + 2] = Math.sin(d - t * 3.0 * speed) * depthScale;
+            k++;
+          }
+        }
+        posAttr.needsUpdate = true;
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
