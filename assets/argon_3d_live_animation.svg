@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070b14"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#3b82f6" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="ringGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fbbc04"/>
+      <stop offset="50%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="840" height="360" rx="16" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Perspective 3D Floor Grid -->
+  <g stroke="#1e293b" stroke-width="1" opacity="0.7">
+    <line x1="0" y1="260" x2="840" y2="260"/>
+    <line x1="0" y1="285" x2="840" y2="285"/>
+    <line x1="0" y1="315" x2="840" y2="315"/>
+    <line x1="0" y1="350" x2="840" y2="350"/>
+    <line x1="420" y1="230" x2="40" y2="360"/>
+    <line x1="420" y1="230" x2="180" y2="360"/>
+    <line x1="420" y1="230" x2="310" y2="360"/>
+    <line x1="420" y1="230" x2="420" y2="360"/>
+    <line x1="420" y1="230" x2="530" y2="360"/>
+    <line x1="420" y1="230" x2="660" y2="360"/>
+    <line x1="420" y1="230" x2="800" y2="360"/>
+  </g>
+
+  <!-- Animated 3D Stellarator / Orbital Assembly (Center-Right) -->
+  <g transform="translate(575, 178)">
+    <!-- Ambient Core Glow -->
+    <circle cx="0" cy="0" r="125" fill="url(#coreGlow)">
+      <animate attributeName="r" values="115;135;115" dur="4s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Outer Rotating 3D Gimbal Ring 1 -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="14s" repeatCount="indefinite"/>
+      <ellipse cx="0" cy="0" rx="145" ry="52" fill="none" stroke="url(#ringGrad1)" stroke-width="2.5" stroke-dasharray="12 6"/>
+      <circle cx="145" cy="0" r="5" fill="#38bdf8"/>
+      <circle cx="-145" cy="0" r="5" fill="#34d399"/>
+    </g>
+
+    <!-- Middle Rotating 3D Gimbal Ring 2 -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="10s" repeatCount="indefinite"/>
+      <ellipse cx="0" cy="0" rx="125" ry="78" fill="none" stroke="url(#ringGrad2)" stroke-width="2" opacity="0.85"/>
+      <circle cx="0" cy="-78" r="4.5" fill="#fbbc04"/>
+      <circle cx="0" cy="78" r="4.5" fill="#f43f5e"/>
+    </g>
+
+    <!-- Inner High-Speed Helical Stellarator Coil -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="6s" repeatCount="indefinite"/>
+      <ellipse cx="0" cy="0" rx="95" ry="34" fill="none" stroke="#60a5fa" stroke-width="2.2"/>
+      <ellipse cx="0" cy="0" rx="34" ry="95" fill="none" stroke="#818cf8" stroke-width="2.2"/>
+    </g>
+
+    <!-- Central Shaded 3D Argon Sphere -->
+    <circle cx="0" cy="0" r="38" fill="#1d4ed8" stroke="#93c5fd" stroke-width="1.5"/>
+    <circle cx="-10" cy="-12" r="12" fill="#eff6ff" opacity="0.65"/>
+  </g>
+
+  <!-- Left HUD Panel: Multimodal Image/Video -> 3D Pipeline -->
+  <rect x="24" y="24" width="335" height="312" rx="12" fill="#0b1120" fill-opacity="0.88" stroke="#334155" stroke-width="1.5"/>
+  <rect x="38" y="40" width="210" height="22" rx="11" fill="#0284c7" fill-opacity="0.22"/>
+  <text x="50" y="55" fill="#38bdf8" font-family="Segoe UI, Inter, sans-serif" font-size="11" font-weight="bold">● LIVE 3D SPATIAL ENGINE</text>
+
+  <text x="38" y="88" fill="#ffffff" font-family="Segoe UI, Inter, sans-serif" font-size="19" font-weight="bold">Gemini 4 Argon 3D Studio</text>
+  <text x="38" y="110" fill="#94a3b8" font-family="Segoe UI, Inter, sans-serif" font-size="12">Image &amp; Video-to-3D Reconstruction + Raytracer</text>
+
+  <!-- Pipeline Step Cards -->
+  <rect x="38" y="128" width="307" height="46" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+  <text x="52" y="148" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12" font-weight="bold">1. Multimodal Input (Image / Video)</text>
+  <text x="52" y="165" fill="#38bdf8" font-family="Consolas, monospace" font-size="11">ERQA: 87.0% SOTA | LVBench: 91.7% SOTA</text>
+
+  <rect x="38" y="184" width="307" height="46" rx="8" fill="#1e293b" stroke="#818cf8" stroke-width="1"/>
+  <text x="52" y="204" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12" font-weight="bold">2. Argon Spatial Reasoning (1M Tokens)</text>
+  <text x="52" y="221" fill="#a5b4fc" font-family="Consolas, monospace" font-size="11">Extracts 3D meshes, joints &amp; PBR shaders</text>
+
+  <rect x="38" y="240" width="307" height="46" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1"/>
+  <text x="52" y="260" fill="#e2e8f0" font-family="Consolas, monospace" font-size="12" font-weight="bold">3. Real-Time Three.js &amp; Raytracer</text>
+  <text x="52" y="277" fill="#6ee7b7" font-family="Consolas, monospace" font-size="11">Interactive WebGL + .webm Video Export</text>
+
+  <text x="38" y="314" fill="#cbd5e1" font-family="Consolas, monospace" font-size="11">▶ Click the Live Demo link below to play in 3D</text>
+</svg>
