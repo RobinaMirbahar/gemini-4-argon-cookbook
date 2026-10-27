@@ -5,6 +5,50 @@
 [![Context & Output: 1M Unified](https://img.shields.io/badge/Tokens-1M_Input_%2F_1M_Output-34A853?style=for-the-badge)](https://aistudio.google.com/docs/long-decode)
 [![SDK: google-genai >= 2.25.0](https://img.shields.io/badge/SDK-Interactions_API_v2-FBBC04?style=for-the-badge)](https://ai.google.dev/gemini-api/docs/interactions)
 
+> **Author & Architect:** [Robina Mirbahar](https://github.com/RobinaMirbahar) (Google Developer Expert in Cloud & AI)  
+> **Focus:** 1M Context Continuation, Deep Reasoning Thought Signatures & Interactive 3D WebGL Studio
+
+---
+
+## 🎯 Why I Built Gemini 4 Argon Cookbook (Engineering Purpose & Real-World Value)
+
+### 1. 🧠 Mastering Long-Horizon 1M-Token Context Continuation
+I built this cookbook to show how to maintain stateful reasoning across massive multi-turn conversations and codebases without losing intermediate constraints or context integrity.
+
+### 2. 🔐 Verifiable Thought Signatures & Structured Tool Execution
+Instead of treating reasoning models as opaque black boxes, I designed reproducible recipes that capture, inspect, and replay thought signatures across multi-step tool calls.
+
+### 3. 🎮 Interactive 3D WebGL Verification Studio
+To make model benchmarking tangible and visual, I paired the Python recipes with an interactive 3D WebGL studio that renders complex spatial and code generation outputs in real time.
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+flowchart TD
+    subgraph Client ["1. Developer & 3D Studio Layer"]
+        C_NB["Interactive Cookbook Recipes (Python / Notebooks)"]
+        C_3D["3D WebGL Visual Benchmark Studio (Three.js)"]
+    end
+    subgraph Core ["2. Gemini 4 Argon Reasoning Engine"]
+        G_Ctx["1M-Token Context Cache & Continuation"]
+        G_Sig["Cryptographic Thought Signature Replay"]
+        G_Tools["Deterministic Function Calling & Schema Guard"]
+    end
+    subgraph Out ["3. Verified Outputs & Telemetry"]
+        O_Code["Executable 3D Scene & Code Artifacts"]
+        O_Eval["Latency, Token & Reasoning Trace Metrics"]
+    end
+    C_NB --> G_Ctx
+    C_3D --> G_Ctx
+    G_Ctx --> G_Sig --> G_Tools
+    G_Tools --> O_Code
+    G_Tools --> O_Eval
+```
+
+---
+
 > **Built to solve your hardest problems.**
 > Hands-on, production-ready examples for **[Gemini 4 Argon](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/)** using the **Gemini Interactions API** (`client.interactions.create`), featuring **6 original, built-from-scratch 3D engines & interactive WebGL simulations**, **1M unified output continuation protocol**, **first-class thought signatures**, and **autonomous code auditing**.
 
@@ -125,3 +169,22 @@ Licensed under the [Apache 2.0 License](./LICENSE).
 <div align="center">
   <img src="https://raw.githubusercontent.com/RobinaMirbahar/RobinaMirbahar/main/ProfileImages/GithubBanner.svg" alt="Robina Mirbahar Banner" width="100%" />
 </div>
+
+<!-- AUTHOR_SIGNATURE_START -->
+---
+
+## 👩‍💻 About the Author
+
+**Robina Mirbahar — Google Cloud & AI Architect**  
+*Google Developer Expert (GDE) in Cloud & AI • Published Author • Multi-Agent Systems & Serverless GPU Builder*
+
+[![GitHub](https://img.shields.io/badge/GitHub-RobinaMirbahar-181717?style=for-the-badge&logo=github)](https://github.com/RobinaMirbahar)
+[![Medium](https://img.shields.io/badge/Medium-@robinamirbahar-000000?style=for-the-badge&logo=medium)](https://medium.com/@robinamirbahar)
+[![DEV.to](https://img.shields.io/badge/DEV.to-robinamirbahar-0A0A0A?style=for-the-badge&logo=devdotto)](https://dev.to/robinamirbahar)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Robina_Mirbahar-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/robina-mirbahar)
+[![GDE Profile](https://img.shields.io/badge/Google_Developer_Expert-Profile-4285F4?style=for-the-badge&logo=google)](https://g.dev/RobinaMirbahar)
+[![YouTube](https://img.shields.io/badge/YouTube-@RobinaMirbahar-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/@RobinaMirbahar)
+[![X](https://img.shields.io/badge/X-@RobinaMirbahar-000000?style=for-the-badge&logo=x)](https://x.com/RobinaMirbahar)
+[![Amazon Author](https://img.shields.io/badge/Amazon_Book-Cloud_Computing_Voyage-FF9900?style=for-the-badge&logo=amazon)](https://www.amazon.com/dp/B0D146249R)
+
+<!-- AUTHOR_SIGNATURE_END -->
