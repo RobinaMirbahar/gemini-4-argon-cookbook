@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Example 01: Gemini 2.5 Pro — 1M Unified Token Limit & Long-Decode Continuation Protocol
+Example 01: Gemini 4 Argon — 1M Unified Token Limit & Long-Decode Continuation Protocol
 ========================================================================================
-Demonstrates how to use `gemini-2.5-pro` with the Gemini Interactions API (`google-genai >= 2.25.0`)
+Demonstrates how to use `gemini-4-argon` with the Gemini Interactions API (`google-genai >= 2.25.0`)
 to sustain massive multi-step outputs (up to 1,000,000 tokens) using the `continuation_token`
 protocol across both unary and streaming calls.
 
@@ -23,7 +23,7 @@ import sys
 import time
 from dataclasses import dataclass
 
-MODEL_ID = os.environ.get("GEMINI_MODEL", "gemini-2.5-pro")
+MODEL_ID = os.environ.get("GEMINI_MODEL", "gemini-4-argon")
 
 # Introductory pricing through November 30, 2026 (USD per 1M tokens)
 INPUT_PRICE_PER_1M = 2.00
@@ -78,7 +78,7 @@ def run_streaming_long_decode(prompt: str) -> TokenTelemetry:
     continuation_token: str | None = None
     status: str | None = None
 
-    print(f"🚀 Starting Gemini 2.5 Pro Long-Decode Stream (model={MODEL_ID})\n" + "=" * 72)
+    print(f"🚀 Starting Gemini 4 Argon Long-Decode Stream (model={MODEL_ID})\n" + "=" * 72)
 
     while True:
         stream = client.interactions.create(
@@ -100,7 +100,7 @@ def run_streaming_long_decode(prompt: str) -> TokenTelemetry:
                 if delta_type == "thought_summary":
                     summary_text = getattr(event.delta, "text", "")
                     if summary_text:
-                        print(f"\n💭 [Gemini 2.5 Pro Thought] {summary_text}", end="", flush=True)
+                        print(f"\n💭 [Argon Thought] {summary_text}", end="", flush=True)
                 elif delta_type == "text":
                     print(getattr(event.delta, "text", ""), end="", flush=True)
             elif event.event_type == "interaction.completed":
@@ -130,7 +130,7 @@ def run_streaming_long_decode(prompt: str) -> TokenTelemetry:
 
 def run_demo_simulation() -> TokenTelemetry:
     """Simulates a multi-chunk 1M Long-Decode trajectory when run with --demo."""
-    print(f"🚀 [DEMO MODE] Gemini 2.5 Pro Long-Decode Stream (model={MODEL_ID})\n" + "=" * 72)
+    print(f"🚀 [DEMO MODE] Gemini 4 Argon Long-Decode Stream (model={MODEL_ID})\n" + "=" * 72)
     chunks = [
         (
             "thought_summary",
@@ -168,7 +168,7 @@ def run_demo_simulation() -> TokenTelemetry:
     for kind, content in chunks:
         time.sleep(0.15)
         if kind == "thought_summary":
-            print(f"\n💭 [Gemini 2.5 Pro Thought] {content}\n")
+            print(f"\n💭 [Argon Thought] {content}\n")
         elif kind == "text":
             print(content, end="", flush=True)
         elif kind == "continuation":
@@ -188,7 +188,7 @@ def run_demo_simulation() -> TokenTelemetry:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Gemini 2.5 Pro 1M Unified Token Limit & Long-Decode Continuation Example"
+        description="Gemini 4 Argon 1M Unified Token Limit & Long-Decode Continuation Example"
     )
     parser.add_argument(
         "--demo",
@@ -202,7 +202,7 @@ def main() -> None:
             "Architect a complete, production-grade C++20 to Rust incremental migration plan "
             "for a high-throughput video decoder, including safe SIMD auto-vectorization patterns."
         ),
-        help="Prompt to send to Gemini 2.5 Pro",
+        help="Prompt to send to Gemini 4 Argon",
     )
     args = parser.parse_args()
 
@@ -213,7 +213,7 @@ def main() -> None:
     else:
         telemetry = run_streaming_long_decode(args.prompt)
 
-    print("\n📊 Gemini 2.5 Pro Telemetry & Cost Summary")
+    print("\n📊 Gemini 4 Argon Telemetry & Cost Summary")
     print("-" * 44)
     print(f"  Input Tokens        : {telemetry.input_tokens:,}")
     print(f"  Cached Input Tokens : {telemetry.cached_input_tokens:,} (95% discount: $0.10/1M)")
