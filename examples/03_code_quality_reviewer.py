@@ -1,6 +1,5 @@
-"""Example 03: Automated Code Quality & Maintainability Reviewer with Gemini 2.5 Pro."""
+"""Example 03: Autonomous Code Quality & Architecture Reviewer with Gemini 4 Argon."""
 from google import genai
-from google.genai import types
 from pydantic import BaseModel, Field
 
 class RefactorSuggestion(BaseModel):
@@ -16,17 +15,16 @@ class CodeQualityReport(BaseModel):
 
 def review_python_module(source_code: str) -> CodeQualityReport:
     client = genai.Client()
-    response = client.models.generate_content(
-        model="gemini-2.5-pro",
-        contents=f"Review the following Python module for PEP 8 readability, type annotations, and algorithmic efficiency:\n\n```python\n{source_code}\n```",
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json",
-            response_schema=CodeQualityReport,
-            temperature=0.1,
-        ),
+    interaction = client.interactions.create(
+        model="gemini-4-argon",
+        input=f"Review the following Python module for PEP 8 readability, type annotations, and algorithmic efficiency:\n\n```python\n{source_code}\n```",
+        generation_config={
+            "thinking_level": "high",
+            "response_mime_type": "application/json",
+            "response_schema": CodeQualityReport,
+        },
     )
-    return CodeQualityReport.model_validate_json(response.text)
+    return CodeQualityReport.model_validate_json(interaction.output_text)
 
 if __name__ == "__main__":
-    sample = "def calc(items):\n    res = []\n    for i in range(len(items)):\n        if items[i] > 0:\n            res.append(items[i] * 2)\n    return res\n"
-    print("Ready to review Python modules for maintainability and performance with Gemini 2.5 Pro.")
+    print("Ready to review Python modules for maintainability and performance with Gemini 4 Argon.")
