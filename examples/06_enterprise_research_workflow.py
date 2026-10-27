@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Example 06: Gemini 2.5 Pro — Enterprise Multi-Tool Research & Financial Workflow
+Example 06: Gemini 4 Argon — Enterprise Multi-Tool Research & Financial Workflow
 ================================================================================
-Inspired by Gemini 2.5 Pro's #1 ranking on the Vals Index (finance, legal, tax, coding)
+Inspired by Gemini 4 Argon's #1 ranking on the Vals Index (finance, legal, tax, coding)
 and Kepler's benchmark (>99% match with analyst-built multi-year SEC financial models).
 
 Demonstrates:
@@ -21,7 +21,7 @@ import argparse
 import os
 import time
 
-MODEL_ID = os.environ.get("GEMINI_MODEL", "gemini-2.5-pro")
+MODEL_ID = os.environ.get("GEMINI_MODEL", "gemini-4-argon")
 
 
 def run_live_enterprise_workflow() -> None:
@@ -35,7 +35,7 @@ def run_live_enterprise_workflow() -> None:
         model=MODEL_ID,
         input=(
             "Analyze the unit economics of switching a high-volume enterprise document pipeline "
-            "(500M input tokens/day, 80% cache hit rate, 40M output tokens/day) to Gemini 2.5 Pro "
+            "(500M input tokens/day, 80% cache hit rate, 40M output tokens/day) to Gemini 4 Argon "
             "at its introductory pricing ($2/1M input, $0.10/1M cached input, $10/1M output). "
             "Use code_execution to compute daily, monthly, and annual costs and compare against "
             "an uncached baseline."
@@ -87,14 +87,14 @@ def run_demo_enterprise_workflow() -> None:
     time.sleep(0.15)
     print(
         "=== Turn 2: CFO Executive Brief (`previous_interaction_id` Chained) ===\n"
-        "- **54.3% Lower Total Inference Spend:** Leveraging Gemini 2.5 Pro's 95% cached input discount ($0.10/1M tokens) reduces monthly pipeline expenditure from $42,000 to $19,200 at 500M daily input tokens.\n"
+        "- **54.3% Lower Total Inference Spend:** Leveraging Gemini 4 Argon's 95% cached input discount ($0.10/1M tokens) reduces monthly pipeline expenditure from $42,000 to $19,200 at 500M daily input tokens.\n"
         "- **Single-Pass Multi-Year SEC Filing Synthesis:** The expanded 1M unified input/output token limit eliminates multi-stage chunking errors across 10-K/10-Q cohorts.\n"
         "- **Price Lock Window:** Introductory rates ($2/1M input, $10/1M output) apply through November 30, 2026 before standard tier pricing ($4/1M input, $20/1M output) takes effect."
     )
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Gemini 2.5 Pro Enterprise Multi-Tool Workflow")
+    parser = argparse.ArgumentParser(description="Gemini 4 Argon Enterprise Multi-Tool Workflow")
     parser.add_argument("--demo", action="store_true", help="Run in offline demo mode")
     args = parser.parse_args()
 
