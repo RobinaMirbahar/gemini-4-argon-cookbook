@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Example 07: Gemini 4 Argon — Multimodal Image & Video to 3D Scene Reconstruction
+Example 07: Gemini 2.5 Pro — Multimodal Image & Video to 3D Scene Reconstruction
 ================================================================================
-Inspired by three flagship 3D & spatial reasoning showcases in the Gemini 4 Argon blog post:
+Inspired by three flagship 3D & spatial reasoning showcases in the Gemini 2.5 Pro blog post:
   1. Desk Racer (Image -> 3D Game): Turned pictures of a real desk into a playable miniature
      3D racing game in Three.js with collision-checked objects and custom shaders.
   2. Cartwheel (Video -> 3D Scene): Integrated Gemini 4 into a 3D spatial reconstruction
@@ -35,7 +35,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-MODEL_ID = os.environ.get("GEMINI_MODEL", "gemini-4-argon")
+MODEL_ID = os.environ.get("GEMINI_MODEL", "gemini-2.5-pro")
 
 SCENE_GRAPH_3D_SCHEMA: dict[str, Any] = {
     "type": "object",
@@ -88,7 +88,7 @@ SCENE_GRAPH_3D_SCHEMA: dict[str, Any] = {
 
 
 def reconstruct_3d_from_media(media_path: Path, media_kind: str = "image") -> dict[str, Any]:
-    """Calls Gemini 4 Argon with an image or video to reconstruct a 3D physics-ready scene graph."""
+    """Calls Gemini 2.5 Pro with an image or video to reconstruct a 3D physics-ready scene graph."""
     from google import genai
 
     client = genai.Client()
@@ -127,7 +127,7 @@ def reconstruct_3d_from_media(media_path: Path, media_kind: str = "image") -> di
         if getattr(step, "type", None) == "thought":
             for block in getattr(step, "summary", []) or []:
                 if getattr(block, "text", None):
-                    print(f"💭 [Argon Spatial Reasoning] {block.text}")
+                    print(f"💭 [Gemini 2.5 Pro Spatial Reasoning] {block.text}")
 
     return json.loads(interaction.output_text)
 
@@ -137,12 +137,12 @@ def run_demo_reconstruction() -> dict[str, Any]:
     print("=" * 78)
     time.sleep(0.15)
     print(
-        "💭 [Argon Spatial Reasoning] Estimating camera vanishing point (horizon y=265px, FOV=52°). "
+        "💭 [Gemini 2.5 Pro Spatial Reasoning] Estimating camera vanishing point (horizon y=265px, FOV=52°). "
         "Segmenting 3 reflective spheres on a checkerboard ground plane and inferring PBR metalness/roughness."
     )
     time.sleep(0.15)
     return {
-        "scene_title": "Argon Reconstructed 3D Study & Orbital Track",
+        "scene_title": "Gemini 2.5 Pro Reconstructed 3D Study & Orbital Track",
         "camera_fov_deg": 52.0,
         "ambient_light_hex": "#93c5fd",
         "objects_3d": [
@@ -192,7 +192,7 @@ def run_demo_reconstruction() -> dict[str, Any]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Gemini 4 Argon Multimodal Image & Video to 3D Scene Reconstructor"
+        description="Gemini 2.5 Pro Multimodal Image & Video to 3D Scene Reconstructor"
     )
     parser.add_argument("--image", type=str, help="Path to input image (.png, .jpg, .webp)")
     parser.add_argument("--video", type=str, help="Path to input video (.mp4, .webm, .mov)")
