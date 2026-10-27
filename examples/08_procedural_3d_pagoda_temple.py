@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Example 08: Gemini 2.5 Pro — Procedural 3D Pagoda Temple Generator (.OBJ Mesh)
+Example 08: Gemini 4 Argon — Procedural 3D Pagoda Temple Generator (.OBJ Mesh)
 ==============================================================================
 Built 100% from scratch in pure Python (zero external dependencies) to showcase
 procedural 3D architectural geometry generation:
