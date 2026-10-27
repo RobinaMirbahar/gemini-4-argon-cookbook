@@ -1,10 +1,10 @@
 {
-  "name": "gemini-2.5-pro-cookbook",
+  "name": "gemini-4-argon-cookbook",
   "version": "1.0.0",
-  "description": "Real-world examples for Google DeepMind's Gemini 2.5 Pro (1M unified token limit, long-decode continuation, deep reasoning, and autonomous code auditing) using the Gemini Interactions API.",
+  "description": "Real-world examples for Google DeepMind's Gemini 4 Argon (1M unified token limit, long-decode continuation, deep reasoning, and autonomous code auditing) using the Gemini Interactions API.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/RobinaMirbahar/gemini-2.5-pro-cookbook.git"
+    "url": "https://github.com/RobinaMirbahar/gemini-4-argon-cookbook.git"
   },
   "author": "Robina Mirbahar (https://github.com/RobinaMirbahar)",
   "type": "module",
@@ -13,7 +13,7 @@
   },
   "keywords": [
     "gemini",
-    "gemini-2.5-pro",
+    "gemini-4-argon",
     "google-genai",
     "interactions-api",
     "deepmind",
