@@ -1,5 +1,5 @@
 /**
- * Example 01 (TypeScript): Gemini 4 Argon — 1M Token Long-Decode Continuation Protocol
+ * Example 01 (TypeScript): Gemini 2.5 Pro — 1M Token Long-Decode Continuation Protocol
  * ====================================================================================
  * Uses the official `@google/genai` (>= 2.3.0) Interactions API (`ai.interactions.create`)
  * to stream long-horizon reasoning and code generation up to 1,000,000 tokens,
@@ -11,11 +11,11 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-4-argon";
+const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-pro";
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
 async function runStreamingLongDecode(ai: GoogleGenAI, prompt: string) {
-  console.log(`🚀 Starting Gemini 4 Argon Long-Decode Stream (model=${MODEL})`);
+  console.log(`🚀 Starting Gemini 2.5 Pro Long-Decode Stream (model=${MODEL})`);
   console.log("=".repeat(72));
 
   let interactionId: string | undefined;
@@ -40,7 +40,7 @@ async function runStreamingLongDecode(ai: GoogleGenAI, prompt: string) {
     for await (const event of stream) {
       if (event.event_type === "step.delta") {
         if (event.delta?.type === "thought_summary" && event.delta.text) {
-          process.stdout.write(`\n💭 [Argon Thought] ${event.delta.text}\n`);
+          process.stdout.write(`\n💭 [Gemini 2.5 Pro Thought] ${event.delta.text}\n`);
         } else if (event.delta?.type === "text") {
           process.stdout.write(event.delta.text ?? "");
         }
@@ -64,7 +64,7 @@ async function runStreamingLongDecode(ai: GoogleGenAI, prompt: string) {
 
 async function main() {
   if (!GEMINI_API_KEY) {
-    console.log("ℹ️  Set GEMINI_API_KEY to run against the live Gemini 4 Argon API.");
+    console.log("ℹ️  Set GEMINI_API_KEY to run against the live Gemini 2.5 Pro API.");
     console.log("   Example: GEMINI_API_KEY='...' npx tsx examples/01_long_decode_continuation.ts");
     return;
   }
