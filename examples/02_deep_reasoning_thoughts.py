@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Example 02: Gemini 2.5 Pro — Deep Reasoning & First-Class Thought Steps
+Example 02: Gemini 4 Argon — Deep Reasoning & First-Class Thought Steps
 =======================================================================
 In the Gemini Interactions API (`client.interactions.create`), model reasoning is surfaced
 as first-class `thought` steps in the `interaction.steps` timeline, complete with:
-  - `signature`: Cryptographic representation of Gemini 2.5 Pro's internal reasoning state
+  - `signature`: Cryptographic representation of Gemini 4 Argon's internal reasoning state
   - `summary`: Human-readable reasoning summary blocks when `thinking_summaries="auto"`
 
-Inspired by Gemini 2.5 Pro's scientific & mathematical breakthroughs:
+Inspired by Gemini 4 Argon's scientific & mathematical breakthroughs:
   - 100x spacetime reduction for formally verified quantum `arcsin` circuits in Lean
   - Broader class of counterexamples to Grad's 1967 conjecture for nuclear fusion stellarators
 
@@ -22,7 +22,7 @@ import argparse
 import os
 import time
 
-MODEL_ID = os.environ.get("GEMINI_MODEL", "gemini-2.5-pro")
+MODEL_ID = os.environ.get("GEMINI_MODEL", "gemini-4-argon")
 
 SCIENTIFIC_PROMPT = (
     "We are designing a fault-tolerant quantum subroutine for computing arcsin(x) "
@@ -84,7 +84,7 @@ def run_demo_thinking() -> None:
     print(
         "✨ [Step 2: model_output]\n"
         "### Spacetime-Optimized Quantum `arcsin(x)` Subroutine\n\n"
-        "| Metric ($n = 16$ bits precision) | Baseline Quantum CORDIC | Gemini 2.5 Pro Piecewise-Chebyshev QROM | Reduction |\n"
+        "| Metric ($n = 16$ bits precision) | Baseline Quantum CORDIC | Argon Piecewise-Chebyshev QROM | Reduction |\n"
         "| :--- | :---: | :---: | :---: |\n"
         "| **Toffoli / T-Gate Count** | $14,820$ | $312$ | **47.5×** |\n"
         "| **Logical Ancilla Qubits** | $96$ | $42$ | **2.28×** |\n"
@@ -102,7 +102,7 @@ def run_demo_thinking() -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Gemini 2.5 Pro Deep Reasoning & Thought Steps")
+    parser = argparse.ArgumentParser(description="Gemini 4 Argon Deep Reasoning & Thought Steps")
     parser.add_argument("--demo", action="store_true", help="Run in offline demo mode")
     args = parser.parse_args()
 
