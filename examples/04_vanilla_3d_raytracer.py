@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 """
-Example 04: Gemini 4 Argon — 100% Pure-Python Zero-Dependency 3D Ray-Tracing Engine
+Example 04: Gemini 2.5 Pro — 100% Pure-Python Zero-Dependency 3D Ray-Tracing Engine
 ===================================================================================
-Inspired by the Gemini 4 Argon launch showcase:
-  "With zero external libraries and 100% pure Python, Argon wrote its own 3D ray-tracing
+Inspired by the Gemini 2.5 Pro launch showcase:
+  "With zero external libraries and 100% pure Python, Gemini 2.5 Pro wrote its own 3D ray-tracing
    engine ... to build and document a sunlit library from scratch."
 
 This script uses ONLY the Python standard library (`math`, `struct`, `os`, `time`) to:
-  1. Ray-trace a 3D architectural scene ("The Argon Sunlit Study") featuring:
+  1. Ray-trace a 3D architectural scene ("The Gemini 2.5 Pro Sunlit Study") featuring:
      - Reflective spheres (glass/metallic orbs on a study pedestal)
      - Axis-aligned wooden bookshelves and columns (AABB box primitives)
      - Procedural warm parquet/checkerboard floor with soft multi-sample sun shadows
      - Atmospheric golden-hour sky gradient & Beers-Lambert attenuation
   2. Write a uncompressed 24-bit `.bmp` image (`output/argon_sunlit_study.bmp`) with zero
      external packages required!
-  3. Optionally query `gemini-4-argon` via the Interactions API to dynamically generate
+  3. Optionally query `gemini-2.5-pro` via the Interactions API to dynamically generate
      new 3D sphere/column coordinates for the raytracer.
 
 Usage:
@@ -148,7 +148,7 @@ class Box:
 
 def build_sunlit_library_scene() -> tuple[list[Sphere], list[Box]]:
     spheres = [
-        # Central Argon chrome-blue celestial globe
+        # Central Gemini 2.5 Pro chrome-blue celestial globe
         Sphere(
             center=Vec3(0.0, -0.15, -3.2),
             radius=0.85,
@@ -353,6 +353,6 @@ def render_scene(width: int = 480, height: int = 270) -> Path:
 
 
 if __name__ == "__main__":
-    print("🌞 Gemini 4 Argon — Pure-Python Zero-Dependency 3D Ray-Tracing Engine")
+    print("🌞 Gemini 2.5 Pro — Pure-Python Zero-Dependency 3D Ray-Tracing Engine")
     print("=" * 72)
     render_scene(width=480, height=270)
