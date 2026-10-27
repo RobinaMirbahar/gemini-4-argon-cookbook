@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gemini 2.5 Pro — Live 3D Spatial &amp; Image/Video-to-3D Studio</title>
+  <title>Gemini 4 Argon — Live 3D Spatial &amp; Image/Video-to-3D Studio</title>
   <style>
     :root {
       --bg: #070b14;
@@ -160,7 +160,7 @@
 
   <div class="hud-header">
     <div class="brand-card">
-      <div class="badge">● Gemini 2.5 Pro • 100% Built-From-Scratch 3D Suite</div>
+      <div class="badge">● Gemini 4 Argon • 100% Built-From-Scratch 3D Suite</div>
       <h1>Live 3D Spatial &amp; Image/Video-to-3D Studio</h1>
       <p class="subtitle">
         Explore 5 custom-built 3D scenes created from scratch: <b>Stellarator Fusion Coils</b>,
@@ -514,7 +514,7 @@
 
     document.getElementById("snapBtn").addEventListener("click", () => {
       const link = document.createElement("a");
-      link.download = "gemini-2.5-pro-3d-snapshot.png";
+      link.download = "gemini-4-argon-3d-snapshot.png";
       link.href = renderer.domElement.toDataURL("image/png");
       link.click();
       statusText.textContent = "Saved 3D PNG Snapshot!";
@@ -538,7 +538,7 @@
         const blob = new Blob(recordedChunks, { type: "video/webm" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "gemini-2.5-pro-3d-capture.webm";
+        a.download = "gemini-4-argon-3d-capture.webm";
         a.click();
         statusText.textContent = "Downloaded 3D Video (.webm)!";
       };
