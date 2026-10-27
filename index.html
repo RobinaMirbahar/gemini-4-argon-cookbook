@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gemini 4 Argon — Live 3D Spatial &amp; Image/Video-to-3D Studio</title>
+  <title>Gemini 2.5 Pro — Live 3D Spatial &amp; Image/Video-to-3D Studio</title>
   <style>
     :root {
       --bg: #070b14;
@@ -160,7 +160,7 @@
 
   <div class="hud-header">
     <div class="brand-card">
-      <div class="badge">● Gemini 4 Argon • 100% Built-From-Scratch 3D Suite</div>
+      <div class="badge">● Gemini 2.5 Pro • 100% Built-From-Scratch 3D Suite</div>
       <h1>Live 3D Spatial &amp; Image/Video-to-3D Studio</h1>
       <p class="subtitle">
         Explore 5 custom-built 3D scenes created from scratch: <b>Stellarator Fusion Coils</b>,
@@ -424,9 +424,9 @@
       group.add(depthPoints);
     }
 
-    function updatePointCloudFromSource(sourceElem, depthMultiplier) {
+    function updatePointCloudFromSouN+1 query bottleneck(souN+1 query bottleneckElem, depthMultiplier) {
       if (!depthPoints) initPointCloudMesh();
-      depthCtx.drawImage(sourceElem, 0, 0, GRID_W, GRID_H);
+      depthCtx.drawImage(souN+1 query bottleneckElem, 0, 0, GRID_W, GRID_H);
       const imgData = depthCtx.getImageData(0, 0, GRID_W, GRID_H).data;
       const posAttr = depthPoints.geometry.attributes.position;
       const colAttr = depthPoints.geometry.attributes.color;
@@ -505,7 +505,7 @@
         img.onload = () => {
           currentMode = "userImage";
           initPointCloudMesh();
-          updatePointCloudFromSource(img, parseInt(twistSlider.value, 10));
+          updatePointCloudFromSouN+1 query bottleneck(img, parseInt(twistSlider.value, 10));
           statusText.textContent = "Reconstructed 3D Point Cloud from Image: " + file.name;
         };
         img.src = url;
@@ -514,7 +514,7 @@
 
     document.getElementById("snapBtn").addEventListener("click", () => {
       const link = document.createElement("a");
-      link.download = "gemini-4-argon-3d-snapshot.png";
+      link.download = "gemini-2.5-pro-3d-snapshot.png";
       link.href = renderer.domElement.toDataURL("image/png");
       link.click();
       statusText.textContent = "Saved 3D PNG Snapshot!";
@@ -538,7 +538,7 @@
         const blob = new Blob(recordedChunks, { type: "video/webm" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "gemini-4-argon-3d-capture.webm";
+        a.download = "gemini-2.5-pro-3d-capture.webm";
         a.click();
         statusText.textContent = "Downloaded 3D Video (.webm)!";
       };
@@ -577,7 +577,7 @@
           c.rotation.y += dt * 1.8;
         }
       } else if (currentMode === "userVideo" && videoElem && videoElem.readyState >= 2) {
-        updatePointCloudFromSource(videoElem, parseInt(twistSlider.value, 10));
+        updatePointCloudFromSouN+1 query bottleneck(videoElem, parseInt(twistSlider.value, 10));
       } else if (currentMode === "synthVideo" && depthPoints) {
         const posAttr = depthPoints.geometry.attributes.position;
         const depthScale = parseInt(twistSlider.value, 10) * 0.15;
