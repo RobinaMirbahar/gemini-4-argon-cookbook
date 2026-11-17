@@ -1,9 +1,9 @@
 # 🚀 Gemini 4 Argon Cookbook & Live 3D Starter Kit
 
-[![Model: Gemini 4 Argon](https://img.shields.io/badge/Model-gemini--4--argon-4285F4?style=for-the-badge&logo=google)](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/)
+[![Model: Gemini 4 Argon](https://img.shields.io/badge/Model-gemini--4--argon-4285F4?style=for-the-badge&logo=google)](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/?utm_campaign=deveco_gdemembers&utm_source=deveco)
 [![Live 3D Demo](https://img.shields.io/badge/🎮_Live_3D_Studio-Play_in_Browser-00C853?style=for-the-badge)](https://robinamirbahar.github.io/gemini-4-argon-cookbook/)
-[![Context & Output: 1M Unified](https://img.shields.io/badge/Tokens-1M_Input_%2F_1M_Output-34A853?style=for-the-badge)](https://aistudio.google.com/docs/long-decode)
-[![SDK: google-genai >= 2.25.0](https://img.shields.io/badge/SDK-Interactions_API_v2-FBBC04?style=for-the-badge)](https://ai.google.dev/gemini-api/docs/interactions)
+[![Context & Output: 1M Unified](https://img.shields.io/badge/Tokens-1M_Input_%2F_1M_Output-34A853?style=for-the-badge)](https://aistudio.google.com/docs/long-decode?utm_campaign=deveco_gdemembers&utm_source=deveco)
+[![SDK: google-genai >= 2.25.0](https://img.shields.io/badge/SDK-Interactions_API_v2-FBBC04?style=for-the-badge)](https://ai.google.dev/gemini-api/docs/interactions?utm_campaign=deveco_gdemembers&utm_source=deveco)
 
 > **Author & Architect:** [Robina Mirbahar](https://github.com/RobinaMirbahar) (Google Developer Expert in Cloud & AI)  
 > **Focus:** 1M Context Continuation, Deep Reasoning Thought Signatures & Interactive 3D WebGL Studio
@@ -50,7 +50,7 @@ flowchart TD
 ---
 
 > **Built to solve your hardest problems.**
-> Hands-on, production-ready examples for **[Gemini 4 Argon](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/)** using the **Gemini Interactions API** (`client.interactions.create`), featuring **6 original, built-from-scratch 3D engines & interactive WebGL simulations**, **1M unified output continuation protocol**, **first-class thought signatures**, and **autonomous code auditing**.
+> Hands-on, production-ready examples for **[Gemini 4 Argon](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/?utm_campaign=deveco_gdemembers&utm_source=deveco)** using the **Gemini Interactions API** (`client.interactions.create`), featuring **6 original, built-from-scratch 3D engines & interactive WebGL simulations**, **1M unified output continuation protocol**, **first-class thought signatures**, and **autonomous code auditing**.
 
 <p align="center">
   <a href="https://robinamirbahar.github.io/gemini-4-argon-cookbook/">
