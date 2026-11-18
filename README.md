@@ -5,7 +5,8 @@
 [![Context & Output: 1M Unified](https://img.shields.io/badge/Tokens-1M_Input_%2F_1M_Output-34A853?style=for-the-badge)](https://aistudio.google.com/docs/long-decode?utm_campaign=deveco_gdemembers&utm_source=deveco)
 [![SDK: google-genai >= 2.25.0](https://img.shields.io/badge/SDK-Interactions_API_v2-FBBC04?style=for-the-badge)](https://ai.google.dev/gemini-api/docs/interactions?utm_campaign=deveco_gdemembers&utm_source=deveco)
 
-> **Author & Architect:** [Robina Mirbahar](https://github.com/RobinaMirbahar) (Google Developer Expert in Cloud & AI)  
+> **Author & Architect:** [Robina Mirbahar](https://github.com/RobinaMirbahar) ([Google Developer Expert in Cloud & AI](https://developers.google.com/profile/u/106918534005910641104?utm_campaign=deveco_gdemembers&utm_source=deveco) · Google Cloud Champion Innovator · Co-Author of [*AI Engineering*](https://www.amazon.com/dp/B0GWCZWCF4))  
+> 📚 **Companion Publications:** [DEV.to (@gde) Deep Dive Article](https://dev.to/gde/deep-dive-autonomous-code-auditing-40-python-speedups-stateful-1m-token-agents-with-gemini-4-46oj) · [Live 3D WebGL Studio](https://robinamirbahar.github.io/gemini-4-argon-cookbook/)  
 > **Focus:** 1M Context Continuation, Deep Reasoning Thought Signatures & Interactive 3D WebGL Studio
 
 ---
@@ -45,6 +46,18 @@ flowchart TD
     G_Ctx --> G_Sig --> G_Tools
     G_Tools --> O_Code
     G_Tools --> O_Eval
+    style Client fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    style C_NB fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    style Recipes fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    style C_3D fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#581c87
+    style Studio fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    style Core fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    style G_Ctx fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    style G_Sig fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#581c87
+    style G_Tools fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    style Out fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    style O_Code fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    style O_Eval fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#581c87
 ```
 
 ---
@@ -148,43 +161,3 @@ python examples/01_long_decode_continuation.py --demo
 ## 📜 License
 
 Licensed under the [Apache 2.0 License](./LICENSE).
-
-
----
-
-### 🚀 Featured Google Cloud & Agentic AI Portfolio by Robina Mirbahar
-
-| Repository | Architecture & Focus | Live Status |
-| :--- | :--- | :--- |
-| **[gemma4-multilora-adk-eval](https://github.com/RobinaMirbahar/gemma4-multilora-adk-eval)** | Dynamic Multi-LoRA Hot-Swapping & CI/CD Agent Evaluation (`adk eval`) on Cloud Run GPUs with Gemma 4 & vLLM | ![Stars](https://img.shields.io/github/stars/RobinaMirbahar/gemma4-multilora-adk-eval?style=flat-square&color=4285F4) ![Last Commit](https://img.shields.io/github/last-commit/RobinaMirbahar/gemma4-multilora-adk-eval?style=flat-square) |
-| **[slothsre-napops](https://github.com/RobinaMirbahar/slothsre-napops)** | SlothSRE ("NapOps") — Overnight Gemma 4 & Google ADK Incident Digest Agent with OpenTelemetry & Sentry AI Monitoring | ![Stars](https://img.shields.io/github/stars/RobinaMirbahar/slothsre-napops?style=flat-square&color=34A853) ![Last Commit](https://img.shields.io/github/last-commit/RobinaMirbahar/slothsre-napops?style=flat-square) |
-| **[streamforge-event-adk](https://github.com/RobinaMirbahar/streamforge-event-adk)** | Real-Time Event-Driven Multi-Agent Pipelines on Google Cloud with ADK (`ParallelAgent` & `LoopAgent`), Eventarc & Pub/Sub | ![Stars](https://img.shields.io/github/stars/RobinaMirbahar/streamforge-event-adk?style=flat-square&color=FBBC04) ![Last Commit](https://img.shields.io/github/last-commit/RobinaMirbahar/streamforge-event-adk?style=flat-square) |
-| **[a2a-mcp-mesh-cloudrun](https://github.com/RobinaMirbahar/a2a-mcp-mesh-cloudrun)** | Agent-to-Agent (A2A) & Multi-MCP Mesh on Cloud Run with Gemma 4, Google ADK, Spanner Graph & AlloyDB | ![Stars](https://img.shields.io/github/stars/RobinaMirbahar/a2a-mcp-mesh-cloudrun?style=flat-square&color=EA4335) ![Last Commit](https://img.shields.io/github/last-commit/RobinaMirbahar/a2a-mcp-mesh-cloudrun?style=flat-square) |
-| **[cloudguard-gemma-agent](https://github.com/RobinaMirbahar/cloudguard-gemma-agent)** | 6-Part Production Gemma Enterprise Agent Series (ADK, Cloud Run L4 GPU, Firestore, Model Armor, Vertex AI QLoRA) | ![Stars](https://img.shields.io/github/stars/RobinaMirbahar/cloudguard-gemma-agent?style=flat-square&color=4285F4) ![Last Commit](https://img.shields.io/github/last-commit/RobinaMirbahar/cloudguard-gemma-agent?style=flat-square) |
-| **[Comic-Studio-Ai](https://github.com/RobinaMirbahar/Comic-Studio-Ai)** | Multi-Agent Comic Generator powered by Google Gemini API & FastAPI deployed on Google Cloud Run | ![Stars](https://img.shields.io/github/stars/RobinaMirbahar/Comic-Studio-Ai?style=flat-square&color=EA4335) ![Last Commit](https://img.shields.io/github/last-commit/RobinaMirbahar/Comic-Studio-Ai?style=flat-square) |
-| **[vertex-ai-imagen3](https://github.com/RobinaMirbahar/vertex-ai-imagen3)** | Generate AI-powered product & editorial images using Google Vertex AI Imagen 3 in Google Colab | ![Stars](https://img.shields.io/github/stars/RobinaMirbahar/vertex-ai-imagen3?style=flat-square&color=34A853) ![Last Commit](https://img.shields.io/github/last-commit/RobinaMirbahar/vertex-ai-imagen3?style=flat-square) |
-| **[Python-Learning-Assistant](https://github.com/RobinaMirbahar/Python-Learning-Assistant)** | AI-powered Python tutor covering 50+ interactive exercises with real-time feedback built with Streamlit + Gemini API | ![Stars](https://img.shields.io/github/stars/RobinaMirbahar/Python-Learning-Assistant?style=flat-square&color=FBBC04) ![Last Commit](https://img.shields.io/github/last-commit/RobinaMirbahar/Python-Learning-Assistant?style=flat-square) |
-| **[cozy-ai-agent-cafe-game](https://github.com/RobinaMirbahar/cozy-ai-agent-cafe-game)** | Prompt Paws: 60 FPS Cozy AI Agent Bakery Simulation Game teaching RAG, Guardrails, Context Caching & Multi-Agent Loops | ![Stars](https://img.shields.io/github/stars/RobinaMirbahar/cozy-ai-agent-cafe-game?style=flat-square&color=7928CA) ![Last Commit](https://img.shields.io/github/last-commit/RobinaMirbahar/cozy-ai-agent-cafe-game?style=flat-square) |
-
-<div align="center">
-  <img src="https://raw.githubusercontent.com/RobinaMirbahar/RobinaMirbahar/main/ProfileImages/GithubBanner.svg" alt="Robina Mirbahar Banner" width="100%" />
-</div>
-
-<!-- AUTHOR_SIGNATURE_START -->
----
-
-## 👩‍💻 About the Author
-
-**Robina Mirbahar — Google Cloud & AI Architect**  
-*Google Developer Expert (GDE) in Cloud & AI • Published Author • Multi-Agent Systems & Serverless GPU Builder*
-
-[![GitHub](https://img.shields.io/badge/GitHub-RobinaMirbahar-181717?style=for-the-badge&logo=github)](https://github.com/RobinaMirbahar)
-[![Medium](https://img.shields.io/badge/Medium-@robinamirbahar-000000?style=for-the-badge&logo=medium)](https://medium.com/@robinamirbahar)
-[![DEV.to](https://img.shields.io/badge/DEV.to-robinamirbahar-0A0A0A?style=for-the-badge&logo=devdotto)](https://dev.to/robinamirbahar)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Robina_Mirbahar-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/robinamirbahar)
-[![GDE Profile](https://img.shields.io/badge/Google_Developer_Expert-Profile-4285F4?style=for-the-badge&logo=google)](https://g.dev/RobinaMirbahar?utm_campaign=deveco_gdemembers&utm_source=deveco)
-[![YouTube](https://img.shields.io/badge/YouTube-@RobinaCodesAI-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/@RobinaCodesAI)
-[![X](https://img.shields.io/badge/X-@RobinaMirbahar-000000?style=for-the-badge&logo=x)](https://x.com/RobinaMirbahar)
-[![Amazon Author](https://img.shields.io/badge/Amazon_Book-Cloud_Computing_Voyage-FF9900?style=for-the-badge&logo=amazon)](https://www.amazon.com/dp/B0D146249R)
-
-<!-- AUTHOR_SIGNATURE_END -->
