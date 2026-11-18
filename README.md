@@ -7,7 +7,7 @@
 
 > **Author & Architect:** [Robina Mirbahar](https://github.com/RobinaMirbahar) ([Google Developer Expert in Cloud & AI](https://developers.google.com/profile/u/106918534005910641104?utm_campaign=deveco_gdemembers&utm_source=deveco) · Google Cloud Champion Innovator · Co-Author of [*AI Engineering*](https://www.amazon.com/dp/B0GWCZWCF4))  
 > 📚 **Companion Publications:** [DEV.to (@gde) Deep Dive Article](https://dev.to/gde/deep-dive-autonomous-code-auditing-40-python-speedups-stateful-1m-token-agents-with-gemini-4-46oj) · [Live 3D WebGL Studio](https://robinamirbahar.github.io/gemini-4-argon-cookbook/)  
-> **Focus:** 1M Context Continuation, Deep Reasoning Thought Signatures & Interactive 3D WebGL Studio
+> **Core Stack:** [Google DeepMind Gemini API](https://ai.google.dev/gemini-api/docs?utm_campaign=deveco_gdemembers&utm_source=deveco) (1M Unified Context Horizon), Stateful Interactions API (previous_interaction_id), Cryptographic Thought Signatures, and Pure-Python 3D Raytracer.
 
 ---
 
