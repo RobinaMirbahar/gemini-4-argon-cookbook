@@ -46,18 +46,6 @@ flowchart TD
     G_Ctx --> G_Sig --> G_Tools
     G_Tools --> O_Code
     G_Tools --> O_Eval
-    style Client fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    style C_NB fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
-    style Recipes fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-    style C_3D fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#581c87
-    style Studio fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    style Core fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
-    style G_Ctx fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-    style G_Sig fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#581c87
-    style G_Tools fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    style Out fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
-    style O_Code fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-    style O_Eval fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#581c87
 ```
 
 ---
